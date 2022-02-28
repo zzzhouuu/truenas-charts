@@ -1,0 +1,62 @@
+image:
+  repository: technitium/dns-server
+  pullPolicy: IfNotPresent
+  tag: 7.1
+
+secret:
+  admin-password: ""
+
+env:
+  DNS_SERVER_DOMAIN: "dns-server"
+  DNS_SERVER_PREFER_IPV6: false
+  DNS_SERVER_OPTIONAL_PROTOCOL_DNS_OVER_HTTP: false
+  DNS_SERVER_ENABLE_BLOCKING: false
+  DNS_SERVER_ALLOW_TXT_BLOCKING_REPORT: false
+
+envValueFrom:
+  DNS_SERVER_ADMIN_PASSWORD:
+    secretKeyRef:
+      name: '{{ include "common.names.fullname" . }}'
+      key: admin-password
+
+service:
+  main:
+    ports:
+      main:
+        port: 5380
+        targetPort: 5380
+      dns-tcp:
+        enabled: true
+        port: 53
+        targetPort: 53
+      dns-udp:
+        enabled: true
+        protocol: UDP
+        port: 53
+        targetPort: 53
+      dhcp:
+        enabled: false
+        protocol: UDP
+        port: 67
+        targetPort: 67
+      dot:
+        enabled: false
+        port: 853
+        targetPort: 853
+      doh:
+        enabled: false
+        port: 443
+        targetPort: 443
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/etc/dns/config"
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
