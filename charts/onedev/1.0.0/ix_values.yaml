@@ -1,0 +1,4 @@
+image:
+  pullPolicy: IfNotPresent
+  repository: 1dev/server
+  tag: 6.3.10

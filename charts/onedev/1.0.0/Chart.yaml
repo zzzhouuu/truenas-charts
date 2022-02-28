@@ -1,0 +1,18 @@
+apiVersion: v2
+appVersion: 6.3.10
+dependencies:
+  - name: common
+    repository: file://../../../library/common/2112.0.0
+    version: 2112.0.0
+description: Self-hosted Git Server with Kanban and CI/CD
+home: https://code.onedev.io
+icon: https://code.onedev.io/img/logo.png
+keywords:
+  - git
+  - devops
+  - Kanban
+  - CI/CD
+name: onedev
+sources:
+  - https://github.com/theonedev/onedev
+version: 1.0.0

@@ -1,0 +1,38 @@
+{{ $postgres_values := (. | mustDeepCopy) }}
+{{ $_ := set $postgres_values "common" (dict "nameSuffix" "postgres") }}
+{{ include "common.deployment.common_config" . | nindent 0 }}
+spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
+  template: {{ include "common.deployment.pod.metadata" . | nindent 4 }}
+    spec:
+      serviceAccountName: {{ include "common.names.serviceAccountName" . | quote }}
+      initContainers:
+        - name: init-postgresdb
+          image: {{ template "postgres.imageName" . }}
+          command: ['sh', '-c', "until pg_isready -h {{ template "common.names.fullname" $postgres_values }}; do echo waiting for postgres; sleep 2; done"]
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+      containers:
+      - name: {{ .Chart.Name }}
+        {{ include "common.containers.imageConfig" .Values.image | nindent 8 }}
+        env:
+        {{ $envList := list }}
+        {{ $envList = mustAppend $envList (dict "name" "k8s_service" "value" (include "common.names.fullname" .)) }}
+        {{ $envList = mustAppend $envList (dict "name" "hibernate_dialect" "value" "io.onedev.server.persistence.PostgreSQLDialect") }}
+        {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_driver_class" "value" "org.postgresql.Driver") }}
+        {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_url" "value" (printf "jdbc:postgresql://%s:5432/%s" (include "common.names.fullname" $postgres_values) (include "postgres.databaseName" .))) }}
+        {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_username" "valueFromSecret" true "secretName" (include "postgres.secretName" .) "secretKey" "db-user") }}
+        {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_password" "valueFromSecret" true "secretName" (include "postgres.secretName" .) "secretKey"  "db-password") }}
+        {{ $envList = mustAppend $envList (dict "name" "hibernate_hikari_maximumPoolSize" "value" "25") }}
+        {{ include "common.containers.environmentVariables" (dict "environmentVariables" $envList) | nindent 10 }}
+        ports:
+        - name: http
+          containerPort: 6610
+          protocol: TCP
+        - name: ssh
+          containerPort: 6611
+          protocol: TCP
+        volumeMounts: {{ include "common.storage.configureAppVolumeMountsInContainer" .Values | nindent 12 }}
+          {{ range $index, $hostPathConfiguration := .Values.extraAppVolumeMounts }}
+            - name: extrappvolume-{{ $index }}
+              mountPath: {{ $hostPathConfiguration.mountPath }}
+          {{ end }}
+{{ include "common.storage.allAppVolumes" .Values | nindent 6 }}

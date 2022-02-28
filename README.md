@@ -8,3 +8,4 @@ Unofficial App Catalog for TrueNAS SCALE
 
 | Chart | Description |
 | :----- | :----- |
+| OneDev | OneDev is Self-hosted Git Server with Kanban and CI/CD. |

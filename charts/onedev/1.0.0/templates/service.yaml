@@ -1,0 +1,16 @@
+{{ $svc := .Values.service }}
+{{ $serviceName := include "common.names.fullname" . -}}
+{{ $ports := list }}
+{{ $ports = mustAppend $ports (dict "name" "http" "port" 80) }}
+{{ $ports = mustAppend $ports (dict "name" "ssh" "port" 22) }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $serviceName }}
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+spec:
+  type: LoadBalancer
+  {{- include "common.classes.service.ports" (dict "svcType" "" "values" (dict "ports" $ports) ) | trim | nindent 2 }}
+  selector:
+    {{- include "common.labels.selectorLabels" . | nindent 4 }}
