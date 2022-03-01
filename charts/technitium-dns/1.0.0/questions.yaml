@@ -221,12 +221,6 @@ questions:
           schema:
             type: boolean
             default: false
-        - variable: DNS_SERVER_OPTIONAL_PROTOCOL_DNS_OVER_HTTP
-          label: "DNS_SERVER_OPTIONAL_PROTOCOL_DNS_OVER_HTTP"
-          description: "Enables DNS server optional protocol DNS-over-HTTP on TCP port 8053 to be used with a TLS terminating reverse proxy like nginx."
-          schema:
-            type: boolean
-            default: false
         - variable: DNS_SERVER_ENABLE_BLOCKING
           label: "DNS_SERVER_ENABLE_BLOCKING"
           description: "Sets the DNS server to block domain names using Blocked Zone and Block List Zone."
