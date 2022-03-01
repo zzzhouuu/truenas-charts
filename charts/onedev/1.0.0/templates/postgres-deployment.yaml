@@ -1,3 +1,4 @@
+{{- if .Values.useEmbeddedDatabase -}}
 {{ $values := (. | mustDeepCopy) }}
 {{ $_ := set $values "common" (dict "nameSuffix" "postgres") }}
 {{ include "common.deployment.common_config" $values | nindent 0 }}
@@ -15,3 +16,4 @@ spec: {{ include "common.deployment.common_spec" $values | nindent 2 }}
           containerPort: 5432
           protocol: TCP
       volumes: {{ include "postgres.volumeConfiguration" $values | nindent 8 }}
+{{- end -}}

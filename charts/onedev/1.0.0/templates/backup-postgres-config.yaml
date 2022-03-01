@@ -1,3 +1,4 @@
+{{- if .Values.useEmbeddedDatabase -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -13,3 +14,4 @@ data:
       sleep 5;
     done;
     pg_dump -U $POSTGRES_USER -d {{ template "postgres.databaseName" . }} > /postgres_backups/$BACKUP_NAME;
+{{- end -}}

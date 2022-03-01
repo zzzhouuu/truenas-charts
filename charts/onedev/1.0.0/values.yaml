@@ -13,6 +13,18 @@ image:
 
 ixChartContext: {}
 
+useEmbeddedDatabase: true
+hibernateDialect: ""
+hibernateConnectionDriverClass: ""
+hibernateConnectionUrl: ""
+hibernateConnectionUsername: ""
+hibernateConnectionPassword: ""
+hibernateHikariMaximumPoolSize: ""
+
+service:
+  webPort: 80
+  sshPort: 22
+
 postgresAppVolumeMounts:
   postgres-backup:
     emptyDir: true

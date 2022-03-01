@@ -5,23 +5,32 @@ spec: {{ include "common.deployment.common_spec" . | nindent 2 }}
   template: {{ include "common.deployment.pod.metadata" . | nindent 4 }}
     spec:
       serviceAccountName: {{ include "common.names.serviceAccountName" . | quote }}
+      {{ if .Values.useEmbeddedDatabase }}
       initContainers:
-        - name: init-postgresdb
-          image: {{ template "postgres.imageName" . }}
-          command: ['sh', '-c', "until pg_isready -h {{ template "common.names.fullname" $postgres_values }}; do echo waiting for postgres; sleep 2; done"]
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+      - name: init-postgresdb
+        image: {{ template "postgres.imageName" . }}
+        command: ['sh', '-c', "until pg_isready -h {{ template "common.names.fullname" $postgres_values }}; do echo waiting for postgres; sleep 2; done"]
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      {{ end }}
       containers:
       - name: {{ .Chart.Name }}
         {{ include "common.containers.imageConfig" .Values.image | nindent 8 }}
         env:
         {{ $envList := list }}
         {{ $envList = mustAppend $envList (dict "name" "k8s_service" "value" (include "common.names.fullname" .)) }}
-        {{ $envList = mustAppend $envList (dict "name" "hibernate_dialect" "value" "io.onedev.server.persistence.PostgreSQLDialect") }}
-        {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_driver_class" "value" "org.postgresql.Driver") }}
-        {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_url" "value" (printf "jdbc:postgresql://%s:5432/%s" (include "common.names.fullname" $postgres_values) (include "postgres.databaseName" .))) }}
+        {{ if .Values.useEmbeddedDatabase }}
+          {{ $envList = mustAppend $envList (dict "name" "hibernate_dialect" "value" "io.onedev.server.persistence.PostgreSQLDialect") }}
+          {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_driver_class" "value" "org.postgresql.Driver") }}
+          {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_url" "value" (printf "jdbc:postgresql://%s:5432/%s" (include "common.names.fullname" $postgres_values) (include "postgres.databaseName" .))) }}
+          {{ $envList = mustAppend $envList (dict "name" "hibernate_hikari_maximumPoolSize" "value" "25") }}
+        {{ else }}
+          {{ $envList = mustAppend $envList (dict "name" "hibernate_dialect" "value" .Values.hibernateDialect) }}
+          {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_driver_class" "value" .Values.hibernateConnectionDriverClass) }}
+          {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_url" "value" .Values.hibernateConnectionUrl) }}
+          {{ $envList = mustAppend $envList (dict "name" "hibernate_hikari_maximumPoolSize" "value" .Values.hibernateHikariMaximumPoolSize) }}
+        {{ end }}
         {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_username" "valueFromSecret" true "secretName" (include "postgres.secretName" .) "secretKey" "db-user") }}
         {{ $envList = mustAppend $envList (dict "name" "hibernate_connection_password" "valueFromSecret" true "secretName" (include "postgres.secretName" .) "secretKey"  "db-password") }}
-        {{ $envList = mustAppend $envList (dict "name" "hibernate_hikari_maximumPoolSize" "value" "25") }}
         {{ include "common.containers.environmentVariables" (dict "environmentVariables" $envList) | nindent 10 }}
         ports:
         - name: http

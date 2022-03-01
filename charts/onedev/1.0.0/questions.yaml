@@ -1,18 +1,16 @@
 groups:
-  # - name: "Container Images"
-  #   description: "Image to be used for container"
-  # - name: "OneDev Configuration"
-  #   description: "Configuration details for OneDev workload"
+  - name: "OneDev Configuration"
+    description: "Configure OneDev"
+  - name: "OneDev Environment Variables"
+    description: "Set the environment that will be visible to the container"
+  - name: "Networking"
+    description: "Configure Networking for OneDev"
   - name: "Storage"
     description: "Configure Storage for OneDev"
-  # - name: "Container Configuration"
-  #   description: "Configure OneDev container parameters"
-  - name: "Postgresql Configuration"
-    description: "Configure Postgresql for OneDev"
   - name: "Scaling/Upgrade Policy"
     description: "Configure how pods are replaced when configuration is upgraded"
-  # - name: "Advanced DNS Settings"
-  #   description: "Configure DNS settings"
+  - name: "Advanced DNS Settings"
+    description: "Configure DNS settings"
 
 # portals:
 #   web_portal:
@@ -38,6 +36,112 @@ questions:
         - value: "Recreate"
           description: "Kill existing pods before creating new ones"
 
+  - variable: dnsConfig
+    label: "DNS Configuration"
+    group: "Advanced DNS Settings"
+    schema:
+      type: dict
+      attrs:
+        - variable: options
+          label: "DNS Options"
+          schema:
+            type: list
+            items:
+              - variable: optionsEntry
+                label: "Option Entry Configuration"
+                schema:
+                  type: dict
+                  attrs:
+                    - variable: name
+                      label: "Option Name"
+                      schema:
+                        type: string
+                        required: true
+                    - variable: value
+                      label: "Option Value"
+                      schema:
+                        type: string
+                        required: true
+
+  - variable: useEmbeddedDatabase
+    label: "Use External Database"
+    group: "OneDev Configuration"
+    schema:
+      type: boolean
+      default: false
+      show_subquestions_if: true
+      subquestions:
+        - variable: hibernateDialect
+          label: "Hibernate Dialect"
+          schema:
+            type: string
+            default: "org.hibernate.dialect.MySQL5InnoDBDialect"
+            required: true
+            enum:
+              - value: "org.hibernate.dialect.MySQL5InnoDBDialect"
+              - value: "io.onedev.server.persistence.PostgreSQLDialect"
+              - value: "org.hibernate.dialect.MySQL5InnoDBDialect"
+              - value: "org.hibernate.dialect.SQLServer2012Dialect"
+              - value: "org.hibernate.dialect.Oracle10gDialect"
+        - variable: hibernateConnectionDriverClass
+          label: "Hibernate Connection Driver Class"
+          schema:
+            type: string
+            default: "org.hibernate.dialect.MySQL5InnoDBDialect"
+            required: true
+            enum:
+              - value: "com.mysql.cj.jdbc.Driver"
+              - value: "org.postgresql.Driver"
+              - value: "org.mariadb.jdbc.Driver"
+              - value: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+              - value: "oracle.jdbc.driver.OracleDriver"
+        - variable: hibernateConnectionUrl
+          label: "Hibernate Connection Url"
+          schema:
+            type: string
+            default: ""
+            required: true
+        - variable: hibernateConnectionUsername
+          label: "Hibernate Connection Username"
+          schema:
+            type: string
+            default: ""
+            required: true
+        - variable: hibernateConnectionPassword
+          label: "Hibernate Connection Password"
+          schema:
+            type: string
+            default: ""
+            required: true
+            private: true
+        - variable: hibernateHikariMaximumPoolSize
+          label: "Hibernate Hikari Maximum Pool Size"
+          schema:
+            type: string
+            default: "25"
+            required: true
+
+  - variable: environmentVariables
+    label: "OneDev Environment Variables"
+    group: "OneDev Configuration"
+    schema:
+      type: list
+      default: []
+      items:
+        - variable: environmentVariable
+          label: "Environment Variable"
+          schema:
+            type: dict
+            attrs:
+              - variable: name
+                label: "Name"
+                schema:
+                  type: string
+              - variable: value
+                label: "Value"
+                schema:
+                  type: string
+
   # - variable: service
   #   description: "OneDev Service Configuration"
   #   label: "OneDev Service Configuration"
@@ -46,13 +150,17 @@ questions:
   #     type: dict
   #     required: true
   #     attrs:
-  #       - variable: nodePort
-  #         label: "Node Port to use for OneDev"
+  #       - variable: webPort
+  #         label: "HTTP Port"
   #         schema:
   #           type: int
-  #           min: 9000
-  #           max: 65535
-  #           default: 9001
+  #           default: 6610
+  #           required: true
+  #       - variable: sshPort
+  #         label: "SSH Port"
+  #         schema:
+  #           type: int
+  #           default: 6611
   #           required: true
 
   - variable: appVolumeMounts
@@ -100,6 +208,7 @@ questions:
   - variable: postgresAppVolumeMounts
     label: "Postgres Storage"
     group: "Storage"
+    show_if: [["useExternalDatabase", "=", false]]
     schema:
       type: dict
       attrs:
