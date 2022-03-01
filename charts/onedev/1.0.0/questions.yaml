@@ -5,7 +5,7 @@ groups:
     description: "Set the environment that will be visible to the container"
   - name: "Networking"
     description: "Configure Networking for OneDev"
-  - name: "Storage"
+  - name: "OneDev Storage"
     description: "Configure Storage for OneDev"
   - name: "Scaling/Upgrade Policy"
     description: "Configure how pods are replaced when configuration is upgraded"
@@ -79,15 +79,15 @@ questions:
             required: true
             enum:
               - value: "org.hibernate.dialect.MySQL5InnoDBDialect"
-                description: "MySQL5InnoDBDialect"
+                description: "MySQL Dialect"
               - value: "io.onedev.server.persistence.PostgreSQLDialect"
-                description: "PostgreSQLDialect"
+                description: "PostgreSQL Dialect"
               - value: "org.hibernate.dialect.MySQL5InnoDBDialect"
-                description: "MySQL5InnoDBDialect"
+                description: "MariaDB Dialect"
               - value: "org.hibernate.dialect.SQLServer2012Dialect"
-                description: "SQLServer2012Dialect"
+                description: "SQLServer Dialect"
               - value: "org.hibernate.dialect.Oracle10gDialect"
-                description: "Oracle10gDialect"
+                description: "Oracle Dialect"
         - variable: hibernateConnectionDriverClass
           label: "Hibernate Connection Driver Class"
           schema:
@@ -98,9 +98,9 @@ questions:
               - value: "com.mysql.cj.jdbc.Driver"
                 description: "MySQL Driver"
               - value: "org.postgresql.Driver"
-                description: "Postgresql Driver"
+                description: "PostgreSQL Driver"
               - value: "org.mariadb.jdbc.Driver"
-                description: "Mariadb Driver"
+                description: "MariaDB Driver"
               - value: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                 description: "SQLServer Driver"
               - value: "oracle.jdbc.driver.OracleDriver"
@@ -175,7 +175,7 @@ questions:
 
   - variable: appVolumeMounts
     label: "OneDev Storage"
-    group: "Storage"
+    group: "OneDev Storage"
     schema:
       type: dict
       attrs:
@@ -217,7 +217,7 @@ questions:
 
   - variable: postgresAppVolumeMounts
     label: "Postgres Storage"
-    group: "Storage"
+    group: "OneDev Storage"
     show_if: [["useExternalDatabase", "=", false]]
     schema:
       type: dict
