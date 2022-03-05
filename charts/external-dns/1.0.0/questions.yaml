@@ -49,10 +49,10 @@ questions:
       type: dict
       attrs:
         - variable: sources
-          label: "K8s resources type to be observed for new DNS entries by ExternalDNS"
+          label: "K8s resources type to be observed for new DNS entries."
           schema:
             type: list
-            default: ["service", "ingress"]
+            default: []
             items:
               - variable: source
                 label: "source"
@@ -61,7 +61,7 @@ questions:
                   default: ""
 
         - variable: domainFilters
-          label: "Limit possible target zones by domain suffixes (optional)"
+          label: "Limit possible target zones by domain suffixes."
           schema:
             type: list
             default: []
@@ -73,7 +73,7 @@ questions:
                   default: ""
 
         - variable: provider
-          label: "Cloud Providers"
+          label: "DNS provider where the DNS records will be created"
           schema:
             type: string
             default: "cloudflare"
@@ -83,7 +83,7 @@ questions:
                 description: "cloudflare"
 
         - variable: env
-          label: "Provider Environment Variables"
+          label: "Environment variables for the external-dns container"
           schema:
             type: list
             default: []
