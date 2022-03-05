@@ -7,7 +7,6 @@ secret:
   admin-password: ""
 
 env:
-  TZ: UTC
   DNS_SERVER_DOMAIN: "dns-server"
   DNS_SERVER_PREFER_IPV6: false
   DNS_SERVER_ENABLE_BLOCKING: false
@@ -21,14 +20,36 @@ envValueFrom:
 
 service:
   main:
+    enabled: true
     ports:
       main:
+        enabled: true
         port: 5380
         targetPort: 5380
+
+  tcp:
+    enabled: true
+    annotations:
+      metallb.universe.tf/allow-shared-ip: "technitium-dns"
+    ports:
       dns-tcp:
         enabled: true
         port: 53
         targetPort: 53
+      dot:
+        enabled: false
+        port: 853
+        targetPort: 853
+      doh:
+        enabled: false
+        port: 443
+        targetPort: 443
+
+  udp:
+    enabled: true
+    annotations:
+      metallb.universe.tf/allow-shared-ip: "technitium-dns"
+    ports:
       dns-udp:
         enabled: true
         protocol: UDP
@@ -39,14 +60,6 @@ service:
         protocol: UDP
         port: 67
         targetPort: 67
-      dot:
-        enabled: false
-        port: 853
-        targetPort: 853
-      doh:
-        enabled: false
-        port: 443
-        targetPort: 443
 
 persistence:
   config:
