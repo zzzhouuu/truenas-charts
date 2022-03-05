@@ -1,0 +1,9 @@
+dependencies:
+- name: istio-egress
+  repository: file://../../../library/istio-egress
+  version: 1.13.1
+- name: istio-ingress
+  repository: file://../../../library/istio-ingress
+  version: 1.13.1
+digest: sha256:d82826f530fb90fc6ec5a6330af4dd1a6cca64490fff38dad3519db3545193cb
+generated: "2022-03-05T19:30:09.805987+08:00"

@@ -1,0 +1,19 @@
+apiVersion: v2
+name: istio-ingress
+version: 1.13.1
+kubeVersion: ">=1.16.0-0"
+description: Helm chart for deploying Istio gateways
+type: library
+keywords:
+  - istio
+  - ingressgateway
+  - gateways
+home: https://istio.io/
+sources:
+  - http://github.com/istio/istio
+dependencies:
+  - name: gateway
+    repository: https://istio-release.storage.googleapis.com/charts
+    version: 1.13.1
+icon: https://istio.io/latest/favicons/android-192x192.png
+appVersion: "upstream"

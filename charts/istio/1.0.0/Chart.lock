@@ -5,8 +5,11 @@ dependencies:
 - name: istiod
   repository: https://istio-release.storage.googleapis.com/charts
   version: 1.13.1
-- name: gateway
-  repository: https://istio-release.storage.googleapis.com/charts
+- name: istio-egress
+  repository: file://../../../library/istio-egress
   version: 1.13.1
-digest: sha256:0ec2c9ac8dbb3c4856438c689a2f9c1457dc0b56a60ee16c6044dea4e074e46f
-generated: "2022-03-05T12:40:27.591404+08:00"
+- name: istio-ingress
+  repository: file://../../../library/istio-ingress
+  version: 1.13.1
+digest: sha256:8e6f6f43d0fdee8c52b4c26dd07a8d8b5ab6ff66e6eb8189bc82398ee691c0b2
+generated: "2022-03-05T19:11:05.790838+08:00"

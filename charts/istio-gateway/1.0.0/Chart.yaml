@@ -1,13 +1,11 @@
 apiVersion: v2
-name: istio
+name: istio-gateway
 version: 1.0.0
 kubeVersion: ">=1.16.0-0"
-description: Istio is an open platform for providing a uniform way to integrate microservices, manage traffic flow across microservices, enforce policies and aggregate telemetry data
+description: Helm chart for deploying Istio gateways
 type: application
 keywords:
   - istio
-  - istiod
-  - istio-discovery
   - gateways
   - ingressgateway
   - egressgateway
@@ -15,12 +13,6 @@ home: https://istio.io/
 sources:
   - http://github.com/istio/istio
 dependencies:
-  - name: base
-    repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.13.1
-  - name: istiod
-    repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.13.1
   - name: istio-egress
     repository: file://../../../library/istio-egress
     version: 1.13.1

@@ -1,0 +1,10 @@
+image:
+  repository: placeholder
+  tag: upstream
+  pullPolicy: IfNotPresent
+
+istio-egress:
+  enabled: false
+
+istio-ingress:
+  enabled: false
