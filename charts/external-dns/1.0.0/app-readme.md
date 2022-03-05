@@ -1,0 +1,1 @@
+ExternalDNS synchronizes exposed Kubernetes Services and Ingresses with DNS providers.
