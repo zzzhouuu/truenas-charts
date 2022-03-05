@@ -6,6 +6,7 @@ image:
 external-dns:
   image:
     repository: bitnami/external-dns
+    tag: 0.10.2
 
   imagePullSecrets: []
   nameOverride: ""
