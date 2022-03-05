@@ -21,6 +21,9 @@ envValueFrom:
 
 service:
   main:
+    enabled: true
+    annotations:
+      metallb.universe.tf/allow-shared-ip: "technitium-dns"
     ports:
       main:
         port: 5380
@@ -29,6 +32,19 @@ service:
         enabled: true
         port: 53
         targetPort: 53
+      dot:
+        enabled: false
+        port: 853
+        targetPort: 853
+      doh:
+        enabled: false
+        port: 443
+        targetPort: 443
+  main-udp:
+    enabled: true
+    annotations:
+      metallb.universe.tf/allow-shared-ip: "technitium-dns"
+    ports:
       dns-udp:
         enabled: true
         protocol: UDP
@@ -39,14 +55,6 @@ service:
         protocol: UDP
         port: 67
         targetPort: 67
-      dot:
-        enabled: false
-        port: 853
-        targetPort: 853
-      doh:
-        enabled: false
-        port: 443
-        targetPort: 443
 
 persistence:
   config:
