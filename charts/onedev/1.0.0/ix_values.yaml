@@ -3,15 +3,10 @@ image:
   tag: 7.2.5
   pullPolicy: IfNotPresent
 
-controller:
-  type: statefulset
-  replicas: 1
-  strategy: RollingUpdate
-  rollingUpdate:
-    unavailable: 1
-    surge:
-    partition:
-  revisionHistoryLimit: 3
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
 
 serviceAccount:
   create: true
