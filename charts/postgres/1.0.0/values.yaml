@@ -1,6 +1,6 @@
 image:
-  repository: postgres
-  tag: 14.3
+  repository: supabase/postgres
+  tag: 14.1.0.21
   pullPolicy: IfNotPresent
 
 controller:
@@ -15,9 +15,6 @@ controller:
 
 securityContext:
   readOnlyRootFilesystem: false
-
-podSecurityContext:
-  runAsGroup: 0
 
 service:
   main:
