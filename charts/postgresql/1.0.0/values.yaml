@@ -1,0 +1,79 @@
+image:
+  repository: supabase/postgres
+  tag: 14.1.0.21
+  pullPolicy: IfNotPresent
+
+controller:
+  type: statefulset
+  replicas: 1
+  strategy: RollingUpdate
+  rollingUpdate:
+    unavailable: 1
+    surge:
+    partition:
+  revisionHistoryLimit: 3
+
+securityContext:
+  readOnlyRootFilesystem: false
+
+podSecurityContext:
+  runAsGroup: 0
+
+service:
+  main:
+    type: Simple
+    ports:
+      main:
+        port: 5432
+        targetPort: 5432
+
+persistence:
+  conf:
+    enabled: true
+    mountPath: "/etc/postgresql"
+  data:
+    enabled: true
+    mountPath: "/var/lib/postgresql/data"
+
+probes:
+  liveness:
+    enabled: true
+    custom: true
+    spec:
+      exec:
+        command:
+          - sh
+          - -c
+          - "until pg_isready -U ${POSTGRES_USER} -h localhost; do sleep 2 ; done"
+
+  readiness:
+    enabled: true
+    custom: true
+    spec:
+      exec:
+        command:
+          - sh
+          - -c
+          - "until pg_isready -U ${POSTGRES_USER} -h localhost; do sleep 2 ; done"
+
+  startup:
+    enabled: true
+    custom: true
+    spec:
+      exec:
+        command:
+          - sh
+          - -c
+          - "until pg_isready -U ${POSTGRES_USER} -h localhost; do sleep 2 ; done"
+
+postgresUsername: "postgres"
+postgresPassword: ""
+
+envTpl:
+  POSTGRES_USER: "{{ .Values.postgresUsername }}"
+
+envValueFrom:
+  POSTGRES_PASSWORD:
+    secretKeyRef:
+      name: '{{ default ( include "common.names.fullname" . ) }}'
+      key: "postgres-password"
