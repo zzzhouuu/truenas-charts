@@ -1,0 +1,103 @@
+groups:
+  - name: "Container Image"
+    description: "Image to be used for container"
+  - name: "Controller"
+    description: "Configure workload deployment"
+  - name: "Container Configuration"
+    description: "additional container configuration"
+  - name: "App Configuration"
+    description: "App specific config options"
+  - name: "Networking and Services"
+    description: "Configure Network and Services for container"
+  - name: "Storage and Persistence"
+    description: "Persist and share data that is separate from the container"
+  - name: "Ingress"
+    description: "Ingress Configuration"
+  - name: "Security and Permissions"
+    description: "Configure security context and permissions"
+  - name: "Resources and Devices"
+    description: "Specify resources/devices to be allocated to workload"
+  - name: "Middlewares"
+    description: "Traefik Middlewares"
+  - name: "Metrics"
+    description: "Metrics"
+  - name: "Addons"
+    description: "Addon Configuration"
+  - name: "Advanced"
+    description: "Advanced Configuration"
+
+questions:
+  - variable: global
+    label: "global settings"
+    group: "Controller"
+    schema:
+      type: dict
+      hidden: true
+      attrs:
+        - variable: isSCALE
+          label: "flag this is SCALE"
+          schema:
+            type: boolean
+            default: true
+            hidden: true
+
+  - variable: external-dns
+    group: "App Configuration"
+    label: ""
+    schema:
+      additional_attrs: true
+      type: dict
+      attrs:
+        - variable: sources
+          label: "K8s resources type to be observed for new DNS entries."
+          schema:
+            type: list
+            default: []
+            items:
+              - variable: source
+                label: "source"
+                schema:
+                  type: string
+                  default: ""
+
+        - variable: domainFilters
+          label: "Limit possible target zones by domain suffixes."
+          schema:
+            type: list
+            default: []
+            items:
+              - variable: domainFilter
+                label: "domain"
+                schema:
+                  type: string
+                  default: ""
+
+        - variable: provider
+          label: "DNS provider where the DNS records will be created"
+          schema:
+            type: string
+            default: "cloudflare"
+            required: true
+            enum:
+              - value: "cloudflare"
+                description: "cloudflare"
+
+        - variable: env
+          label: "Environment variables for the external-dns container"
+          schema:
+            type: list
+            default: []
+            items:
+              - variable: environmentVariable
+                label: "Environment Variable"
+                schema:
+                  type: dict
+                  attrs:
+                    - variable: name
+                      label: "Name"
+                      schema:
+                        type: string
+                    - variable: value
+                      label: "Value"
+                      schema:
+                        type: string
