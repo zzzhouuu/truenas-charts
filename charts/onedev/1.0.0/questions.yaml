@@ -284,7 +284,7 @@ questions:
 
   - variable: useEmbeddedDatabase
     label: "Use External Database"
-    group: "OneDev Configuration"
+    group: "App Configuration"
     schema:
       type: boolean
       default: false
