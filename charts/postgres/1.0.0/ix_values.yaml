@@ -1,6 +1,6 @@
 image:
-  repository: supabase/postgres
-  tag: 14.1.0.21
+  repository: postgres
+  tag: 14.3
   pullPolicy: IfNotPresent
 
 controller:
@@ -28,9 +28,6 @@ service:
         targetPort: 5432
 
 persistence:
-  conf:
-    enabled: true
-    mountPath: "/etc/postgresql"
   data:
     enabled: true
     mountPath: "/var/lib/postgresql/data"
