@@ -8,9 +8,9 @@ metadata:
     {{- include "common.labels" . | nindent 4 }}
 data:
   k8s_service: '{{ default ( include "common.names.fullname" . ) }}'
-  {{- if .Values.ingress.main.enabled }} 
-  ingress_host: "{{ .Values.ingress.main.enabled }}" 
-  {{- end }}
+  # {{- if .Values.ingress.main.enabled }} 
+  # ingress_host: "{{ .Values.ingress.main.hosts }}" 
+  # {{- end }}
   {{- if .Values.useExternalDatabase }}
   hibernate_dialect: "{{ .Values.hibernateDialect }}" 
   hibernate_connection_driver_class: "{{ .Values.hibernateConnectionDriverClass }}" 
