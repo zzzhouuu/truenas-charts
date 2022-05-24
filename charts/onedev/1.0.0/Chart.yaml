@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: 7.2.5
+appVersion: "7.2.5"
 name: onedev
 description: Self-hosted Git Server with Kanban and CI/CD
 home: https://code.onedev.io
