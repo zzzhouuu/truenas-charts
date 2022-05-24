@@ -13,4 +13,3 @@ Unofficial App Catalog for TrueNAS SCALE
 | istio-gateway | Istio gateway deployment |
 | external-dns | ExternalDNS synchronizes exposed Kubernetes Services and Ingresses with DNS providers. |
 | onedev | OneDev is Self-hosted Git Server with Kanban and CI/CD. |
-| technitium-dns| Technitium DNS Server is Self host a DNS server for privacy & security. |
