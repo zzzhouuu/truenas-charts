@@ -5,7 +5,7 @@ image:
 
 external-dns:
   image:
-    repository: bitnami/external-dns
+    repository: lank8s.cn/external-dns/external-dns
     tag: v0.11.0
 
   imagePullSecrets: []
