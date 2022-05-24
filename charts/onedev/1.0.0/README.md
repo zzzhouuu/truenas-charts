@@ -1,11 +1,17 @@
-# OneDev
+# Introduction
 
-[OneDev](https://code.onedev.io/) is Self-hosted Git Server with Kanban and CI/CD.
+Self-hosted Git Server with Kanban and CI/CD.
 
-## Introduction
+## Source Code
 
-This chart bootstraps an [OneDev](https://hub.docker.com/r/1dev/server/) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+* <https://github.com/theonedev/onedev>
 
-## Configuration
+## Dependencies
 
-Please refer to questions.yaml for a detailed overview on supported configurable values.
+| Repository | Name | Version |
+|------------|------|---------|
+| https://library-charts.truecharts.org | common | 9.3.17 |
+
+## Requirements
+
+Kubernetes: `>=1.16.0-0`
