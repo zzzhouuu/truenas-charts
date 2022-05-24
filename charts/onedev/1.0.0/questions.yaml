@@ -282,7 +282,7 @@ questions:
                       schema:
                         type: string
 
-  - variable: useEmbeddedDatabase
+  - variable: useExternalDatabase
     label: "Use External Database"
     group: "App Configuration"
     schema:

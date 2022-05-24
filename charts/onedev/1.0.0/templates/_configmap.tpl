@@ -11,13 +11,7 @@ data:
   {{- if .Values.ingress.main.enabled }} 
   ingress_host: "{{ .Values.ingress.main.enabled }}" 
   {{- end }}
-  {{- if .Values.useEmbeddedDatabase }}
-  hibernate_dialect: org.hibernate.dialect.HSQLDialect
-  hibernate_connection_driver_class: org.hsqldb.jdbc.JDBCDriver
-  hibernate_connection_url: jdbc:hsqldb:file:${installDir}/sampledb/onedev;hsqldb.tx=mvcc;hsqldb.lob_compressed=true;sql.ignore_case=true;shutdown=true
-  hibernate_connection_username: sa
-  hibernate_connection_password: ''
-  {{- else }}
+  {{- if .Values.useExternalDatabase }}
   hibernate_dialect: "{{ .Values.hibernateDialect }}" 
   hibernate_connection_driver_class: "{{ .Values.hibernateConnectionDriverClass }}" 
   hibernate_connection_url: "{{ .Values.hibernateConnectionUrl }}" 

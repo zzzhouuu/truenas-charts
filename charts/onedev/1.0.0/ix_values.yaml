@@ -61,7 +61,7 @@ envFrom:
   - configMapRef:
       name: '{{ include "common.names.fullname" . }}-config'
 
-useEmbeddedDatabase: true
+useExternalDatabase: false
 hibernateDialect: ""
 hibernateConnectionDriverClass: ""
 hibernateConnectionUrl: ""
