@@ -1606,7 +1606,7 @@ questions:
           description: "By enabling this you override default set values."
           schema:
             type: boolean
-            default: false
+            default: true
             show_subquestions_if: true
             subquestions:
               - variable: PUID
@@ -1627,7 +1627,7 @@ questions:
     group: "Security and Permissions"
     schema:
       type: boolean
-      default: false
+      default: true
       show_subquestions_if: true
       subquestions:
         - variable: securityContext
