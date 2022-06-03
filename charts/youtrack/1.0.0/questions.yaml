@@ -697,7 +697,7 @@ questions:
       type: dict
       attrs:
         - variable: data
-          label: "App Data Storage"
+          label: "App Content Storage"
           description: "The directory where YouTrack Server stores content data."
           schema:
             additional_attrs: true
@@ -860,7 +860,7 @@ questions:
                                   schema:
                                     type: string
         - variable: conf
-          label: "App Data Storage"
+          label: "App Configuration Storage"
           description: "The directory where YouTrack Server stores configuration files."
           schema:
             additional_attrs: true
@@ -1023,7 +1023,7 @@ questions:
                                   schema:
                                     type: string           
         - variable: logs
-          label: "App Data Storage"
+          label: "App Log Storage"
           description: "The directory where YouTrack Server stores log files."
           schema:
             additional_attrs: true
@@ -1186,7 +1186,7 @@ questions:
                                   schema:
                                     type: string
         - variable: backups
-          label: "App Data Storage"
+          label: "App Backups Storage"
           description: "The directory where YouTrack Server stores backups of the database."
           schema:
             additional_attrs: true
@@ -1922,7 +1922,7 @@ questions:
     group: "Security and Permissions"
     schema:
       type: boolean
-      default: true
+      default: false
       show_subquestions_if: true
       subquestions:
         - variable: securityContext
@@ -1950,7 +1950,7 @@ questions:
                 label: "runAsNonRoot"
                 schema:
                   type: boolean
-                  default: false
+                  default: true
               - variable: capabilities
                 label: "Capabilities"
                 schema:
