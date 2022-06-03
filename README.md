@@ -14,3 +14,4 @@ Unofficial App Catalog for TrueNAS SCALE
 | external-dns | ExternalDNS synchronizes exposed Kubernetes Services and Ingresses with DNS providers. |
 | onedev | OneDev is Self-hosted Git Server with Kanban and CI/CD. |
 | postgres | Unmodified Postgres with some useful plugins. |
+| youtrack | Powerful project management for all your teams. |
