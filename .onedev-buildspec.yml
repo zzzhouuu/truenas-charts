@@ -1,0 +1,41 @@
+version: 16
+imports:
+- projectPath: workflows/setup-repos
+  tag: v1
+jobs:
+- name: Repository Sync
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !UseTemplateStep
+    name: Push to Github
+    templateName: Push to Github
+    params:
+    - valuesProvider: !SpecifiedValues
+        values:
+        - - zzzhouuu/truenas-charts
+      secret: false
+      name: repository
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !UseTemplateStep
+    name: Push To Gitee
+    templateName: Push To Gitee
+    params:
+    - valuesProvider: !SpecifiedValues
+        values:
+        - - zhouu/truenas-charts
+      secret: false
+      name: repository
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
