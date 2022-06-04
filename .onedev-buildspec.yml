@@ -1,7 +1,7 @@
 version: 16
 imports:
 - projectPath: workflows/setup-repos
-  tag: v2
+  tag: v1
 jobs:
 - name: Repository Sync
   steps:
