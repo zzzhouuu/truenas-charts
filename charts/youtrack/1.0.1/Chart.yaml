@@ -1,0 +1,15 @@
+apiVersion: v2
+appVersion: "2022.1.46592"
+name: youtrack
+description: Powerful project management for all your teams.
+home: https://www.jetbrains.com/youtrack
+icon: https://raw.githubusercontent.com/JetBrains/logos/master/web/youtrack/youtrack.svg
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.0.8
+kubeVersion: ">=1.16.0-0"
+sources:
+  - https://github.com/zzzhouuu/truenas-charts/tree/main/charts/youtrack
+type: application
+version: 1.0.1
