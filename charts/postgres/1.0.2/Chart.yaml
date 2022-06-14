@@ -1,0 +1,15 @@
+apiVersion: v2
+appVersion: "14.1.0.34"
+name: postgres
+description: Unmodified Postgres with some useful plugins.
+home: https://www.postgresql.org
+icon: https://d1q6f0aelx0por.cloudfront.net/product-logos/library-postgres-logo.png
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.0.10
+kubeVersion: ">=1.16.0-0"
+sources:
+  - https://github.com/supabase/postgres
+type: application
+version: 1.0.2

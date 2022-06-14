@@ -1,0 +1,45 @@
+# Introduction
+
+Unmodified Postgres with some useful plugins.
+
+## Source Code
+
+* <https://github.com/supabase/postgres>
+
+## Primary Features
+- ✅ Postgres [14](https://www.postgresql.org/about/news/postgresql-14-released-2318/).
+- ✅ Ubuntu 20.04 (Focal Fossa).
+- ✅ [wal_level](https://www.postgresql.org/docs/current/runtime-config-wal.html) = logical and [max_replication_slots](https://www.postgresql.org/docs/current/runtime-config-replication.html) = 5. Ready for replication.
+- ✅ [Large Systems Extensions](https://github.com/aws/aws-graviton-getting-started#building-for-graviton-and-graviton2). Enabled for ARM images.
+
+## Extensions 
+| Extension | Version | Description |
+| ------------- | :-------------: | ------------- |
+| [Postgres contrib modules](https://www.postgresql.org/docs/current/contrib.html) | - | Because everyone should enable `pg_stat_statements`. |
+| [PostGIS](https://postgis.net/) | [3.1.4](https://git.osgeo.org/gitea/postgis/postgis/raw/tag/3.1.4/NEWS) | Postgres' most popular extension - support for geographic objects. |
+| [pgRouting](https://pgrouting.org/) | [v3.3.0](https://github.com/pgRouting/pgrouting/releases/tag/v3.3.0) | Extension of PostGIS - provides geospatial routing functionalities. |
+| [pgTAP](https://pgtap.org/) | [v1.1.0](https://github.com/theory/pgtap/releases/tag/v1.1.0) | Unit Testing for Postgres. |
+| [pg_cron](https://github.com/citusdata/pg_cron) | [v1.4.1](https://github.com/citusdata/pg_cron/releases/tag/v1.4.1) | Run CRON jobs inside Postgres. |
+| [pgAudit](https://www.pgaudit.org/) | [1.6.1](https://github.com/pgaudit/pgaudit/releases/tag/1.6.1) | Generate highly compliant audit logs. |
+| [pgjwt](https://github.com/michelp/pgjwt) | [commit](https://github.com/michelp/pgjwt/commit/9742dab1b2f297ad3811120db7b21451bca2d3c9) | Generate JSON Web Tokens (JWT) in Postgres. |
+| [pgsql-http](https://github.com/pramsey/pgsql-http) | [1.3.1](https://github.com/pramsey/pgsql-http/releases/tag/v1.3.1) | HTTP client for Postgres. |
+| [plpgsql_check](https://github.com/okbob/plpgsql_check) | [2.0.6](https://github.com/okbob/plpgsql_check/releases/tag/v2.0.6) | Linter tool for PL/pgSQL. |
+| [pg-safeupdate](https://github.com/eradman/pg-safeupdate) | [1.4](https://github.com/eradman/pg-safeupdate/releases/tag/1.4) | Protect your data from accidental updates or deletes. |
+| [wal2json](https://github.com/eulerto/wal2json) | [2.4](https://github.com/eulerto/wal2json/releases/tag/wal2json_2_4) | JSON output plugin for logical replication decoding. |
+| [PL/Java](https://github.com/tada/pljava) | [1.6.3](https://github.com/tada/pljava/releases/tag/V1_6_3) | Write in Java functions in Postgres. |
+| [plv8](https://github.com/plv8/plv8) | [commit](https://github.com/plv8/plv8/commit/3656177d384e3e02b74faa8e2931600f3690ab59) | Write in Javascript functions in Postgres. |
+| [pg_plan_filter](https://github.com/pgexperts/pg_plan_filter) | [commit](https://github.com/pgexperts/pg_plan_filter/commit/5081a7b5cb890876e67d8e7486b6a64c38c9a492) | Only allow statements that fulfill set criteria to be executed. |
+| [pg_net](https://github.com/supabase/pg_net) | [v0.3](https://github.com/supabase/pg_net/releases/tag/v0.3) | Expose the SQL interface for async networking. |
+| [rum](https://github.com/postgrespro/rum) | [1.3.9](https://github.com/postgrespro/rum/releases/tag/1.3.9) | An alternative to the GIN index. |
+| [pg_hashids](https://github.com/iCyberon/pg_hashids) | [commit](https://github.com/iCyberon/pg_hashids/commit/83398bcbb616aac2970f5e77d93a3200f0f28e74) | Generate unique identifiers from numbers. |
+| [pgsodium](https://github.com/michelp/pgsodium) | [2.0.0](https://github.com/michelp/pgsodium/releases/tag/2.0.0) | Modern encryption API using libsodium. |
+
+## Dependencies
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://library-charts.truecharts.org | common | 10.0.10 |
+
+## Requirements
+
+Kubernetes: `>=1.16.0-0`
