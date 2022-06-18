@@ -10,7 +10,7 @@ Self-hosted Git Server with Kanban and CI/CD.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://library-charts.truecharts.org | common | 10.0.10 |
+| https://library-charts.truecharts.org | common | 10.0.14 |
 
 ## Requirements
 
