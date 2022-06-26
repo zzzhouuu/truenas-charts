@@ -1,0 +1,15 @@
+apiVersion: v2
+appVersion: "7.3.10"
+name: onedev
+description: Self-hosted Git Server with Kanban and CI/CD
+home: https://code.onedev.io
+icon: https://code.onedev.io/img/logo.png
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.1.4
+kubeVersion: ">=1.16.0-0"
+sources:
+  - https://github.com/theonedev/onedev
+type: application
+version: 1.1.3
