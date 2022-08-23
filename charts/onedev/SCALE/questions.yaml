@@ -281,7 +281,6 @@ questions:
     group: "App Configuration"
     label: "Maintenance Mode"
     schema:
-      additional_attrs: true
       type: boolean
       default: false
 
