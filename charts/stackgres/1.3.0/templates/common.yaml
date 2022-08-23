@@ -1,0 +1,3 @@
+{{ include "tc.common.loader.init" . }}
+{{ include "tc.common.scale.portal" . }}
+{{ include "tc.common.spawner.ingress" . }}
