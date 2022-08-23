@@ -1,0 +1,15 @@
+# Reference: https://github.com/helm/chart-testing/blob/main/doc/ct_install.md
+# Reference: https://github.com/helm/chart-testing/blob/main/doc/ct_lint.md
+
+remote: origin
+target-branch: main
+chart-yaml-schema: .github/chart_schema.yaml
+validate-maintainers: false
+chart-repos:
+  - common=https://library-charts.truecharts.org
+chart-dirs:
+  - charts
+excluded-charts:
+  - common
+helm-extra-args: --timeout 600s
+exclude-deprecated: true

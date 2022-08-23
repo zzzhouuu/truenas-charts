@@ -1,0 +1,193 @@
+name: "CI/CD Pipeline"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '**'
+      - '!gh-pages'
+    tags-ignore:
+      - '**'
+    paths:
+      - 'charts/**'
+      - '.github/**'
+
+concurrency:
+  group: ci-${{ github.ref }}
+
+jobs:
+  helm-docs:
+    name: Helm Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Generate Helm docs
+        run: tools/generate-helm-docs.sh
+      - name: Git status
+        run: |
+          status=$(git status --untracked-files=all --porcelain)
+          echo "${status}"
+          if [ -n "${status}" ]; then
+            echo "Error: Helm documentation not up-to-date"
+            exit 1;
+          fi
+
+  helm-lint:
+    name: Helm Charts (lint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.5.3
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.1.0
+      - name: Run chart-testing (lint)
+        id: lint
+        run: ct lint --config .github/ct-config.yaml
+
+  helm-install:
+    name: Helm Charts (install)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.5.3
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.1.0
+      - name: Create k3d cluster
+        uses: nolar/setup-k3d-k3s@v1
+        with:
+          version: v1.19 # K8S version
+      - name: Run chart-testing (install)
+        run: ct install --config .github/ct-config.yaml
+
+  helm-release:
+    name: SCALE Catalog Charts (release)
+    needs:
+      - helm-docs
+      - helm-lint
+      - helm-install
+    runs-on: ubuntu-latest
+    container:
+      image: ixsystems/catalog_validation:latest
+    steps:
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+      - name: Checkout Charts
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: charts
+      - name: Checkout Catalog
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: gh-pages
+          path: gh-pages
+      - name: Update HELM dependencies
+        run: |
+          for train in charts
+          do
+            for chart in charts/${train}/*; do
+              chartname=$(basename ${chart})
+              if [ -d "${chart}" ]; then
+                echo "Chart: ${chartname}: Fetching dependencies"
+                cd ${chart}
+                helm dependency update
+                cd -
+              fi
+            done
+          done
+      - name: Apply SCALE patches
+        run: |
+          for train in charts
+          do
+            for chart in charts/${train}/*; do
+              chartname=$(basename ${chart})
+              if [ -d "${chart}/SCALE" ]; then
+                echo "Chart: ${chartname}: Applying SCALE patch"
+                mv ${chart}/SCALE/item.yaml ${chart}/
+                mv ${chart}/SCALE/ix_values.yaml ${chart}/
+                mv ${chart}/SCALE/questions.yaml ${chart}/
+                rm -rf ${chart}/SCALE
+                mv ${chart}/values.yaml ${chart}/values-test.yaml
+                touch ${chart}/values.yaml
+                description=$(cat ${chart}/Chart.yaml | grep "^description: " | sed -r 's/^description: //')
+                echo "${description}" >> ${chart}/app-readme.md
+              else
+                echo "Chart: ${chartname}: No SCALE compatibility layer detected, Skipping chart"
+              fi
+            done
+          done
+      - name: Clean pre-existing Chart releases
+        run: |
+          for train in charts
+          do
+            for chart in charts/${train}/*; do
+              chartname=$(basename ${chart})
+              chartversion=$(cat ${chart}/Chart.yaml | grep "^version: " | awk -F" " '{ print $2 }')
+              if [ -d "${chart}/SCALE" ]; then
+                echo "Chart: ${chartname}: Cleaning pre-existing release"
+                rm -Rf gh-pages/${chartname}/item.yaml
+                rm -Rf gh-pages/${chartname}/${chartversion}
+              else
+                echo "Chart ${chartname}: No SCALE compatibility layer detected, Skipping chart"
+              fi
+            done
+          done
+      - name: Add Chart releases to Catalog
+        run: |
+          for train in charts
+          do
+            for chart in charts/${train}/*; do
+              chartname=$(basename ${chart})
+              chartversion=$(cat ${chart}/Chart.yaml | grep "^version: " | awk -F" " '{ print $2 }')
+              if [ -f "${chart}/item.yaml" ]; then
+                echo "Chart: ${chartname}: Adding version ${chartversion} to gh-pages"
+                mkdir -p gh-pages/${train}/${chartname}/${chartversion}
+                cp -Rf ${chart}/* gh-pages/${train}/${chartname}/${chartversion}/
+                mv gh-pages/${train}/${chartname}/${chartversion}/item.yaml gh-pages/${train}/${chartname}/item.yaml
+              else
+                echo "Chart: ${chartname}: No SCALE compatibility layer detected, Skipping chart"
+              fi
+            done
+          done
+      - name: Validate Catalog
+        run: |
+          cd gh-pages
+          /bin/bash -c "PWD=${pwd}; /usr/local/bin/catalog_validate validate --path $PWD"
+      - name: Publish Catalog
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          cd gh-pages
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add --all
+          git commit -sm "Commit new Chart releases" || exit 0
+          git push
