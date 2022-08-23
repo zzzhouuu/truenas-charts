@@ -80,6 +80,7 @@ Kubernetes: `>=1.19.0-0`
 | rbac.main.rules[4].verbs[3] | string | `"patch"` |  |
 | rbac.main.rules[4].verbs[4] | string | `"delete"` |  |
 | security.PUID | int | `0` |  |
+| securityContext.runAsNonRoot | bool | `false` |  |
 | service.main.ports.main.port | int | `6610` |  |
 | service.main.ports.main.targetPort | int | `6610` |  |
 | service.ssh.enabled | bool | `true` |  |
