@@ -1661,7 +1661,7 @@ questions:
     group: Security and Permissions
     schema:
       type: boolean
-      default: false
+      default: true
       show_subquestions_if: true
       subquestions:
         - variable: securityContext
@@ -1689,7 +1689,7 @@ questions:
                 label: "runAsNonRoot"
                 schema:
                   type: boolean
-                  default: true
+                  default: false
               - variable: capabilities
                 label: Capabilities
                 schema:

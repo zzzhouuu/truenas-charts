@@ -6,6 +6,9 @@ image:
 security:
   PUID: 0
 
+securityContext:
+  runAsNonRoot: false
+
 podSecurityContext:
   runAsUser: 0
   runAsGroup: 0
