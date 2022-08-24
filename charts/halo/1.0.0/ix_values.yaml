@@ -1,0 +1,40 @@
+# Default values for Halo
+
+image:
+  repository: halohub/halo
+  pullPolicy: IfNotPresent
+  tag: 1.5.4
+
+security:
+  PUID: 0
+
+securityContext:
+  runAsNonRoot: false
+
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
+
+service:
+  main:
+    ports:
+      main:
+        port: 8090
+        targetPort: 8090
+
+persistence:
+  data:
+    enabled: true
+    mountPath: "/root/.halo"
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+portal:
+  enabled: true

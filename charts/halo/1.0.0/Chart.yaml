@@ -1,0 +1,18 @@
+apiVersion: v2
+appVersion: "1.5.4"
+description: A modern open source blog/CMS system
+home: https://halo.run
+icon: https://avatars.githubusercontent.com/u/48195280?s=200&v=4
+keywords:
+  - cms
+  - blog
+kubeVersion: ">= 1.19.0-0"
+name: halo
+sources:
+  - https://github.com/halo-dev/halo
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.5.0
+type: application
+version: 1.0.0
