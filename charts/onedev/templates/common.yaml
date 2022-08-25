@@ -9,7 +9,7 @@
     {{- $defaultServiceName = printf "%v-%v" $defaultServiceName $primaryService.nameOverride -}}
   {{- end -}}
   {{- if eq .Values.database.vender "embedded" }}
-  env: 
+  env:
     k8s_service: {{ $defaultServiceName }}
   {{- else }}
   initContainers:
@@ -17,8 +17,16 @@
       name: prepare-database
       image: busybox:stable
       command: ['sh', '-c', 'echo -e "Checking for the availability of Database Server"; while ! nc -z {{ .Values.database.host }} {{ .Values.database.port }}; do sleep 1; printf "-"; done; echo -e "  >> Database Server has started";']
-  env: 
+  env:
     k8s_service: {{ $defaultServiceName }}
+    hibernate_hikari_minimumIdle: 10
+    hibernate_hikari_maximumPoolSize: 25
+    hibernate_hikari_keepaliveTime: 60000
+    hibernate_hikari_idleTimeout: 120000
+    hibernate_hikari_leakDetectionThreshold: 150000
+    hibernate_hikari_maxLifeTime: 180000
+    hibernate_hikari_connectionTimeout: 3000
+    hibernate_hikari_validationTimeout: 2500
     {{- if eq .Values.database.vender "MySQL" }}
     hibernate_dialect: "org.hibernate.dialect.MySQL5InnoDBDialect"
     hibernate_connection_driver_class: "com.mysql.cj.jdbc.Driver"
