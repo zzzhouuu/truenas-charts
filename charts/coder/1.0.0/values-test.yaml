@@ -49,14 +49,12 @@ probes:
     enabled: false
 
 env:
-  - name: CODER_ADDRESS
-    value: 0.0.0.0:8080
-  - name: CODER_ACCESS_URL
-    value: "{{ .Values.domain }}"
-
-secretEnv:
-  - name: CODER_PG_CONNECTION_URL
-    value: "postgres://{{ .Values.database.username }}:{{ .Values.database.password }}@{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}?sslmode=disable"
+  CODER_ADDRESS: 0.0.0.0:8080
+  CODER_ACCESS_URL: "{{ .Values.domain }}"
+  CODER_PG_CONNECTION_URL:
+    secretKeyRef:
+      name: postgres-credentials
+      key: "CODER_PG_CONNECTION_URL"
 
 domain: ""
 database:

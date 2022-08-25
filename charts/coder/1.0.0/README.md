@@ -28,10 +28,10 @@ Kubernetes: `>= 1.19.0-0`
 | database.port | int | `5432` |  |
 | database.username | string | `"coder"` |  |
 | domain | string | `""` |  |
-| env[0].name | string | `"CODER_ADDRESS"` |  |
-| env[0].value | string | `"0.0.0.0:8080"` |  |
-| env[1].name | string | `"CODER_ACCESS_URL"` |  |
-| env[1].value | string | `"{{ .Values.domain }}"` |  |
+| env.CODER_ACCESS_URL | string | `"{{ .Values.domain }}"` |  |
+| env.CODER_ADDRESS | string | `"0.0.0.0:8080"` |  |
+| env.CODER_PG_CONNECTION_URL.secretKeyRef.key | string | `"CODER_PG_CONNECTION_URL"` |  |
+| env.CODER_PG_CONNECTION_URL.secretKeyRef.name | string | `"postgres-credentials"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/coder/coder"` |  |
 | image.tag | string | `"v0.8.6"` |  |
@@ -50,8 +50,6 @@ Kubernetes: `>= 1.19.0-0`
 | rbac.main.rules[0].apiGroups[0] | string | `""` |  |
 | rbac.main.rules[0].resources[0] | string | `"pods"` |  |
 | rbac.main.rules[0].verbs[0] | string | `"*"` |  |
-| secretEnv[0].name | string | `"CODER_PG_CONNECTION_URL"` |  |
-| secretEnv[0].value | string | `"postgres://{{ .Values.database.username }}:{{ .Values.database.password }}@{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}?sslmode=disable"` |  |
 | security.PUID | int | `1000` |  |
 | service.main.ports.main.port | int | `8080` |  |
 
