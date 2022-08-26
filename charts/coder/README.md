@@ -1,6 +1,6 @@
 # coder
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.6](https://img.shields.io/badge/AppVersion-0.8.6-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.6](https://img.shields.io/badge/AppVersion-0.8.6-informational?style=flat-square)
 
 Remote development environments on your infrastructure provisioned with Terraform.
 
@@ -50,6 +50,9 @@ Kubernetes: `>= 1.19.0-0`
 | rbac.main.rules[0].apiGroups[0] | string | `""` |  |
 | rbac.main.rules[0].resources[0] | string | `"pods"` |  |
 | rbac.main.rules[0].verbs[0] | string | `"*"` |  |
+| rbac.main.rules[1].apiGroups[0] | string | `""` |  |
+| rbac.main.rules[1].resources[0] | string | `"persistentvolumeclaims"` |  |
+| rbac.main.rules[1].verbs[0] | string | `"*"` |  |
 | security.PUID | int | `1000` |  |
 | service.main.ports.main.port | int | `8080` |  |
 

@@ -30,6 +30,9 @@ rbac:
       - apiGroups: [""]
         resources: ["pods"]
         verbs: ["*"]
+      - apiGroups: [""]
+        resources: ["persistentvolumeclaims"]
+        verbs: ["*"]
 
 persistence:
   config:

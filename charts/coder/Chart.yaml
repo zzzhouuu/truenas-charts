@@ -15,4 +15,4 @@ dependencies:
     repository: https://library-charts.truecharts.org
     version: 10.5.1
 type: application
-version: 1.0.0
+version: 1.0.1
