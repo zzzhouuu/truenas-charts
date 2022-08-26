@@ -1,0 +1,49 @@
+# Default values for Clash
+
+image:
+  repository: ghcr.io/dreamacro/clash-premium
+  pullPolicy: IfNotPresent
+  tag: 2022.08.26
+
+security:
+  PUID: 0
+
+securityContext:
+  runAsNonRoot: false
+
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
+
+service:
+  main:
+    ports:
+      main:
+        port: 7890
+        targetPort: 7890
+
+  api:
+    enabled: true
+    ports:
+      api:
+        enabled: true
+        port: 9090
+        targetPort: 9090
+
+persistence:
+  data:
+    enabled: true
+    mountPath: "/root/.config/clash"
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+ingress:
+  main:
+    enabled: false
