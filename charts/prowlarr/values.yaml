@@ -1,0 +1,29 @@
+# Default values for Prowlarr
+image:
+  repository: linuxserver/prowlarr
+  pullPolicy: IfNotPresent
+  tag: develop
+
+service:
+  main:
+    ports:
+      main:
+        port: 9696
+        targetPort: 9696
+
+ingress:
+  main:
+    enabled: false
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"

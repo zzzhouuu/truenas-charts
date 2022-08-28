@@ -1,0 +1,21 @@
+apiVersion: v2
+appVersion: latest
+description: Prowlarr is a indexer manager/proxy to integrate with your various PVR apps.
+home: https://github.com/Prowlarr/Prowlarr
+icon: https://github.com/Prowlarr/Prowlarr/blob/develop/Logo/400.png?raw=true
+keywords:
+  - prowlarr
+  - indexer
+  - torrent
+  - usenet
+kubeVersion: ">= 1.19.0-0"
+name: prowlarr
+sources:
+  - https://github.com/Prowlarr/Prowlarr
+  - https://hub.docker.com/r/linuxserver/prowlarr
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.5.2
+type: application
+version: 1.0.0
