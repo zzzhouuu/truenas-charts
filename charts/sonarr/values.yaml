@@ -1,0 +1,51 @@
+# Default values for Sonarr
+image:
+  repository: linuxserver/sonarr
+  pullPolicy: IfNotPresent
+  tag: latest
+
+service:
+  main:
+    ports:
+      main:
+        port: 8989
+        targetPort: 8989
+
+ingress:
+  main:
+    enabled: false
+
+probes:
+  liveness:
+    enabled: true
+    custom: true
+    spec:
+      exec:
+        command:
+          - /usr/bin/env
+          - bash
+          - -c
+          - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+            read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+      failureThreshold: 5
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"
+
+  tv:
+    enabled: false
+    mountPath: "/tvshows"
+
+  downloads:
+    enabled: false
+    mountPath: "/downloads"
