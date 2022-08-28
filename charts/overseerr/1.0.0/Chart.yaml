@@ -1,0 +1,20 @@
+apiVersion: v2
+appVersion: latest
+description: Overseerr is a request management and media discovery tool built to work with your existing Plex ecosystem.
+home: https://overseerr.dev
+icon: https://github.com/sct/overseerr/blob/develop/public/logo_full.svg?raw=true
+keywords:
+  - sonarr
+  - torrent
+  - usenet
+kubeVersion: ">= 1.19.0-0"
+name: overseerr
+sources:
+  - https://github.com/sct/overseerr
+  - https://hub.docker.com/r/linuxserver/overseerr
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.5.2
+type: application
+version: 1.0.0
