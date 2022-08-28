@@ -1,0 +1,37 @@
+# Default values for Bazarr
+image:
+  repository: linuxserver/bazarr
+  pullPolicy: IfNotPresent
+  tag: latest
+
+service:
+  main:
+    ports:
+      main:
+        port: 6767
+        targetPort: 6767
+
+ingress:
+  main:
+    enabled: false
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"
+
+  tv:
+    enabled: false
+    mountPath: "/tvshows"
+
+  movies:
+    enabled: false
+    mountPath: "/movies"
