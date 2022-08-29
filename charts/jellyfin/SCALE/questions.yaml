@@ -1640,3 +1640,13 @@ questions:
                         type: string
                         default: 50Mi
                         valid_chars: '^(?!^0(e[0-9]|[EPTGMK]i?|)$)([0-9]+)(|[EPTGMK]i?|e[0-9]+)$'
+
+  # Specify GPU configuration
+  - variable: scaleGPU
+    label: GPU Configuration
+    group: Resources and Devices
+    schema:
+      type: dict
+      $ref:
+        - "definitions/gpuConfiguration"
+      attrs: []
