@@ -1,0 +1,45 @@
+# Default values for Jellyfin
+image:
+  repository: linuxserver/jellyfin
+  pullPolicy: IfNotPresent
+  tag: latest
+
+env:
+  JELLYFIN_PublishedServerUrl: "https://jelly.mydomain.com"
+
+service:
+  main:
+    ports:
+      main:
+        port: 8096
+        targetPort: 8096
+
+ingress:
+  main:
+    enabled: false
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"
+
+  cache:
+    enabled: true
+    mountPath: "/cache"
+    type: "emptyDir"
+
+  tvshows:
+    enabled: false
+    mountPath: "/data/tvshows"
+
+  movies:
+    enabled: false
+    mountPath: "/data/movies"

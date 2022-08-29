@@ -1,0 +1,20 @@
+apiVersion: v2
+appVersion: latest
+description: Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media.
+home: https://jellyfin.org
+icon: https://jellyfin.org/images/banner-dark.svg
+keywords:
+  - jellyfin
+  - emby
+  - plex
+kubeVersion: ">= 1.19.0-0"
+name: jellyfin
+sources:
+  - https://github.com/jellyfin/jellyfin
+  - https://hub.docker.com/r/linuxserver/jellyfin
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.5.2
+type: application
+version: 1.0.0
