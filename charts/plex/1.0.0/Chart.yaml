@@ -1,0 +1,18 @@
+apiVersion: v2
+appVersion: latest
+description: Plex organizes video, music and photos from personal media libraries and streams them to smart TVs, streaming boxes and mobile devices.
+home: https://www.plex.tv
+icon: https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/mstile-144x144.png
+keywords:
+  - plex
+  - plex-media-server
+kubeVersion: ">= 1.19.0-0"
+name: plex
+sources:
+  - https://hub.docker.com/r/linuxserver/plex
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.5.2
+type: application
+version: 1.0.0

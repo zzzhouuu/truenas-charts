@@ -1,0 +1,46 @@
+# Default values for Plex
+image:
+  repository: linuxserver/plex
+  pullPolicy: IfNotPresent
+  tag: latest
+
+env:
+  VERSION: "docker"
+  PLEX_CLAIM: ""
+
+service:
+  main:
+    ports:
+      main:
+        port: 32400
+        targetPort: 32400
+
+ingress:
+  main:
+    enabled: false
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"
+
+  cache:
+    enabled: true
+    mountPath: "/cache"
+    type: "emptyDir"
+
+  tvshows:
+    enabled: false
+    mountPath: "/data/tvshows"
+
+  movies:
+    enabled: false
+    mountPath: "/data/movies"
