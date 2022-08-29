@@ -45,6 +45,7 @@ Kubernetes: `>=1.19.0-0`
 | initContainers.prepare-sysctl.image | string | `"busybox:stable"` |  |
 | initContainers.prepare-sysctl.name | string | `"prepare-sysctl"` |  |
 | initContainers.prepare-sysctl.securityContext.privileged | bool | `true` |  |
+| initContainers.prepare-sysctl.securityContext.runAsUser | int | `0` |  |
 | persistence.data.enabled | bool | `true` |  |
 | persistence.data.mountPath | string | `"/var/lib/postgresql/data"` |  |
 | podSecurityContext.fsGroup | int | `999` |  |
