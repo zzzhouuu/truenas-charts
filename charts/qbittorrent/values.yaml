@@ -1,0 +1,50 @@
+# Default values for qBittorrent
+image:
+  repository: linuxserver/qbittorrent
+  pullPolicy: IfNotPresent
+  tag: latest
+
+service:
+  main:
+    ports:
+      main:
+        port: 8080
+        targetPort: 8080
+
+  torrent:
+    enabled: true
+    ports:
+      torrent:
+        enabled: true
+        port: 6881
+        targetPort: 6881
+
+  torrentudp:
+    enabled: true
+    ports:
+      torrentudp:
+        enabled: true
+        port: 6881
+        targetPort: 6881
+        protocol: UDP
+
+ingress:
+  main:
+    enabled: false
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"
+
+  downloads:
+    enabled: false
+    mountPath: "/downloads"
