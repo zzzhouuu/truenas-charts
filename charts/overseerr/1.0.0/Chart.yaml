@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: latest
 description: Overseerr is a request management and media discovery tool built to work with your existing Plex ecosystem.
 home: https://overseerr.dev
-icon: https://github.com/sct/overseerr/blob/develop/public/logo_full.svg?raw=true
+icon: https://github.com/sct/overseerr/blob/develop/public/android-chrome-192x192.png?raw=true
 keywords:
   - sonarr
   - torrent
