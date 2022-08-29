@@ -362,7 +362,7 @@ questions:
         - variable: wal
           label: "Enable DB Write-Ahead-Log for SQLite"
           schema:
-            show_if: [["type", "==", "sqlite"]]
+            show_if: [["type", "=", "sqlite"]]
             type: boolean
             default: true
         - variable: maxConnections
