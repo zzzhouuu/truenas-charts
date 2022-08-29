@@ -1,0 +1,19 @@
+apiVersion: v2
+appVersion: latest
+description: Unofficial Bitwarden compatible server written in Rust.
+home: https://github.com/dani-garcia/vaultwarden
+icon: https://github.com/dani-garcia/vaultwarden/blob/main/resources/vaultwarden-icon-white.svg?raw=true
+keywords:
+  - bitwarden
+  - vaultwarden
+  - password
+kubeVersion: ">= 1.19.0-0"
+name: vaultwarden
+sources:
+  - https://github.com/dani-garcia/vaultwarden
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.5.2
+type: application
+version: 1.0.0
