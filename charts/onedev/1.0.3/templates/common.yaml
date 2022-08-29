@@ -1,0 +1,74 @@
+{{/* Make sure all variables are set properly */}}
+{{- include "tc.common.loader.init" . }}
+
+{{/* Append the hardcoded settings */}}
+{{- define "onedev.harcodedValues" -}}
+  {{- $primaryService := get .Values.service (include "tc.common.lib.util.service.primary" .) -}}
+  {{- $defaultServiceName := include "tc.common.names.fullname" . -}}
+  {{- if and (hasKey $primaryService "nameOverride") $primaryService.nameOverride -}}
+    {{- $defaultServiceName = printf "%v-%v" $defaultServiceName $primaryService.nameOverride -}}
+  {{- end -}}
+  {{- if eq .Values.database.vender "embedded" }}
+  env:
+    k8s_service: {{ $defaultServiceName }}
+  {{- else }}
+  initContainers:
+    prepare-sysctl:
+      name: prepare-sysctl
+      image: busybox:stable
+      command:
+      - sysctl
+      - -w
+      - net.ipv4.tcp_keepalive_time=60
+      - net.ipv4.tcp_keepalive_intvl=60
+      - net.ipv4.tcp_keepalive_probes=5
+      securityContext:
+        privileged: true
+    prepare-database:
+      name: prepare-database
+      image: busybox:stable
+      command: ['sh', '-c', 'echo -e "Checking for the availability of Database Server"; while ! nc -z {{ .Values.database.host }} {{ .Values.database.port }}; do sleep 1; printf "-"; done; echo -e "  >> Database Server has started";']
+  env:
+    k8s_service: {{ $defaultServiceName }}
+    {{- if eq .Values.database.vender "MySQL" }}
+    hibernate_dialect: "org.hibernate.dialect.MySQL5InnoDBDialect"
+    hibernate_connection_driver_class: "com.mysql.cj.jdbc.Driver"
+    hibernate_connection_url: {{ (printf "jdbc:mysql://%v:%v/%v?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&disableMariaDbDriver=true" .Values.database.host .Values.database.port .Values.database.name) }}
+    {{- else if eq .Values.database.vender "MariaDB" }}
+    hibernate_dialect: "org.hibernate.dialect.MySQL5InnoDBDialect"
+    hibernate_connection_driver_class: "org.mariadb.jdbc.Driver"
+    hibernate_connection_url: {{ (printf "jdbc:mariadb://%v:%v/%v" .Values.database.host .Values.database.port .Values.database.name) }}
+    {{- else if eq .Values.database.vender "PostgreSQL" }}
+    hibernate_dialect: "io.onedev.server.persistence.PostgreSQLDialect"
+    hibernate_connection_driver_class: "org.postgresql.Driver"
+    hibernate_connection_url: {{ (printf "jdbc:postgresql://%v:%v/%v" .Values.database.host .Values.database.port .Values.database.name) }}
+    {{- else if eq .Values.database.vender "SQLServer" }}
+    hibernate_dialect: "org.hibernate.dialect.SQLServer2012Dialect"
+    hibernate_connection_driver_class: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    hibernate_connection_url: {{ (printf "jdbc:sqlserver://%v:%v;databaseName=%v" .Values.database.host .Values.database.port .Values.database.name) }}
+    {{- else if eq .Values.database.vender "Oracle8i" }}
+    hibernate_dialect: "org.hibernate.dialect.Oracle8iDialect"
+    hibernate_connection_driver_class: "oracle.jdbc.driver.OracleDriver"
+    hibernate_connection_url: {{ (printf "jdbc:oracle:thin:@%v:%v/%v" .Values.database.host .Values.database.port .Values.database.name) }}
+    {{- else if eq .Values.database.vender "Oracle9i" }}
+    hibernate_dialect: "org.hibernate.dialect.Oracle9iDialect"
+    hibernate_connection_driver_class: "oracle.jdbc.driver.OracleDriver"
+    hibernate_connection_url: {{ (printf "jdbc:oracle:thin:@%v:%v/%v" .Values.database.host .Values.database.port .Values.database.name) }}
+    {{- else if eq .Values.database.vender "Oracle10g" }}
+    hibernate_dialect: "org.hibernate.dialect.Oracle10gDialect"
+    hibernate_connection_driver_class: "oracle.jdbc.driver.OracleDriver"
+    hibernate_connection_url: {{ (printf "jdbc:oracle:thin:@%v:%v/%v" .Values.database.host .Values.database.port .Values.database.name) }}
+    {{- end }}
+    hibernate_connection_username: {{ .Values.database.username }}
+  secretEnv:
+    hibernate_connection_password: {{ .Values.database.password }}
+  {{- end }}
+
+  {{- if .Values.maintenance }}
+  command: ["/root/bin/idle.sh"]
+  {{- end }}
+{{- end -}}
+{{- $_ := mergeOverwrite .Values (include "onedev.harcodedValues" . | fromYaml) -}}
+
+{{/* Render the templates */}}
+{{ include "tc.common.loader.apply" . }}
