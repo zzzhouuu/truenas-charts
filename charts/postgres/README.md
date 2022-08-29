@@ -1,6 +1,6 @@
 # postgres
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.1.0.61](https://img.shields.io/badge/AppVersion-14.1.0.61-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.1.0.61](https://img.shields.io/badge/AppVersion-14.1.0.61-informational?style=flat-square)
 
 Unmodified Postgres with some useful plugins.
 
@@ -17,7 +17,7 @@ Kubernetes: `>=1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://library-charts.truecharts.org | common | 10.5.0 |
+| https://library-charts.truecharts.org | common | 10.5.4 |
 
 ## Values
 
@@ -37,6 +37,14 @@ Kubernetes: `>=1.19.0-0`
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"supabase/postgres"` |  |
 | image.tag | string | `"14.1.0.61"` |  |
+| initContainers.prepare-sysctl.command[0] | string | `"sysctl"` |  |
+| initContainers.prepare-sysctl.command[1] | string | `"-w"` |  |
+| initContainers.prepare-sysctl.command[2] | string | `"net.ipv4.tcp_keepalive_time=60"` |  |
+| initContainers.prepare-sysctl.command[3] | string | `"net.ipv4.tcp_keepalive_intvl=60"` |  |
+| initContainers.prepare-sysctl.command[4] | string | `"net.ipv4.tcp_keepalive_probes=5"` |  |
+| initContainers.prepare-sysctl.image | string | `"busybox:stable"` |  |
+| initContainers.prepare-sysctl.name | string | `"prepare-sysctl"` |  |
+| initContainers.prepare-sysctl.securityContext.privileged | bool | `true` |  |
 | persistence.data.enabled | bool | `true` |  |
 | persistence.data.mountPath | string | `"/var/lib/postgresql/data"` |  |
 | podSecurityContext.fsGroup | int | `999` |  |

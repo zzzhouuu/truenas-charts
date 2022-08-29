@@ -13,6 +13,9 @@ controller:
     partition:
   revisionHistoryLimit: 3
 
+security:
+  PUID: 999
+
 securityContext:
   readOnlyRootFilesystem: false
 
@@ -20,6 +23,19 @@ podSecurityContext:
   runAsUser: 999
   runAsGroup: 999
   fsGroup: 999
+
+initContainers:
+  prepare-sysctl:
+    name: prepare-sysctl
+    image: busybox:stable
+    command:
+    - sysctl
+    - -w
+    - net.ipv4.tcp_keepalive_time=60
+    - net.ipv4.tcp_keepalive_intvl=60
+    - net.ipv4.tcp_keepalive_probes=5
+    securityContext:
+      privileged: true
 
 service:
   main:
