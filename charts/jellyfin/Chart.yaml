@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: latest
 description: Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media.
 home: https://jellyfin.org
-icon: https://jellyfin.org/images/banner-dark.svg
+icon: https://github.com/jellyfin/jellyfin.org/blob/master/static/images/icon-transparent.svg?raw=true
 keywords:
   - jellyfin
   - emby
