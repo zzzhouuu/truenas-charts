@@ -1,6 +1,6 @@
 # onedev
 
-![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.4.25](https://img.shields.io/badge/AppVersion-7.4.25-informational?style=flat-square)
+![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.4.25](https://img.shields.io/badge/AppVersion-7.4.25-informational?style=flat-square)
 
 Self-hosted Git Server with Kanban and CI/CD
 
@@ -16,7 +16,7 @@ Kubernetes: `>=1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://library-charts.truecharts.org | common | 10.5.2 |
+| https://library-charts.truecharts.org | common | 10.5.4 |
 
 ## Values
 
