@@ -36,6 +36,7 @@ initContainers:
     - net.ipv4.tcp_keepalive_probes=5
     securityContext:
       privileged: true
+      runAsUser: 0
 
 service:
   main:
