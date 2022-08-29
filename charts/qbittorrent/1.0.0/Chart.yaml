@@ -1,0 +1,19 @@
+apiVersion: v2
+appVersion: latest
+description: The Qbittorrent project aims to provide an open-source software alternative to µTorrent.
+home: https://www.qbittorrent.org
+icon: https://github.com/linuxserver/docker-templates/raw/master/linuxserver.io/img/qbittorrent-icon.png?raw=true
+keywords:
+  - qbittorrent
+  - torrrent
+kubeVersion: ">= 1.19.0-0"
+name: qbittorrent
+sources:
+  - https://github.com/qbittorrent/qBittorrent
+  - https://hub.docker.com/r/linuxserver/qbittorrent
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.5.2
+type: application
+version: 1.0.0

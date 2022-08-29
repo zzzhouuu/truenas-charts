@@ -1,0 +1,51 @@
+##
+# This file contains Values.yaml content that gets added to the output of questions.yaml
+# It's ONLY meant for content that the user is NOT expected to change.
+# Example: Everything under "image" is not included in questions.yaml but is included here.
+##
+image:
+  repository: linuxserver/qbittorrent
+  pullPolicy: IfNotPresent
+  tag: latest
+
+service:
+  main:
+    ports:
+      main:
+        port: 8080
+        targetPort: 8080
+
+  torrent:
+    enabled: true
+    ports:
+      torrent:
+        enabled: true
+        port: 6881
+        targetPort: 6881
+
+  torrentudp:
+    enabled: true
+    ports:
+      torrentudp:
+        enabled: true
+        port: 6881
+        targetPort: 6881
+        protocol: UDP
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"
+
+##
+# Most other defaults are set in questions.yaml
+# For other options please refer to the default_values.yaml or the common library chart
+##
