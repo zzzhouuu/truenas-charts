@@ -1,6 +1,6 @@
 # coder
 
-![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.9](https://img.shields.io/badge/AppVersion-0.8.9-informational?style=flat-square)
+![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.11](https://img.shields.io/badge/AppVersion-0.8.11-informational?style=flat-square)
 
 Remote development environments on your infrastructure provisioned with Terraform.
 
@@ -16,7 +16,7 @@ Kubernetes: `>= 1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://library-charts.truecharts.org | common | 10.5.4 |
+| https://library-charts.truecharts.org | common | 10.5.6 |
 
 ## Values
 
@@ -34,7 +34,7 @@ Kubernetes: `>= 1.19.0-0`
 | env.CODER_PG_CONNECTION_URL.secretKeyRef.name | string | `"postgres-credentials"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/coder/coder"` |  |
-| image.tag | string | `"v0.8.9"` |  |
+| image.tag | string | `"v0.8.11"` |  |
 | ingress.main.enabled | bool | `false` |  |
 | persistence.config.enabled | bool | `true` |  |
 | persistence.config.mountPath | string | `"/.config/coderv2"` |  |
