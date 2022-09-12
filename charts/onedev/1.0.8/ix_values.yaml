@@ -1,0 +1,76 @@
+# Default values for OneDev
+
+image:
+  repository: 1dev/server
+  tag: 7.5.0
+  pullPolicy: IfNotPresent
+
+security:
+  PUID: 0
+
+securityContext:
+  runAsNonRoot: false
+
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
+
+rbac:
+  main:
+    enabled: true
+    rules:
+    - apiGroups: [""]
+      resources: ["namespaces"]
+      verbs: ["get", "list", "create", "delete"] #require this permission to run builds in isolated namespaces
+    - apiGroups: ["rbac.authorization.k8s.io"]
+      resources: ["clusterrolebindings"]
+      verbs: ["get", "list", "create", "delete"] #require this permission to bind cluster roles to service account of running builds
+    - apiGroups: [""]
+      resources: ["nodes"]
+      verbs: ["get", "list"] #require this permission to search nodes matching executor criterias
+    - apiGroups: [""]
+      resources: ["services", "pods", "pods/log", "pods/exec", "secrets", "configmaps", "events"]
+      verbs: ["get", "list", "watch", "create", "patch", "delete"] #require this permission to run builds as pods
+    - apiGroups: ["apps"]
+      resources: ["deployments"]
+      verbs: ["get", "list", "create", "patch", "delete"] #require this permission to run builds as pods
+
+service:
+  main:
+    ports:
+      main:
+        port: 6610
+        targetPort: 6610
+  ssh:
+    enabled: true
+    ports:
+      ssh:
+        enabled: true
+        port: 6611
+        targetPort: 6611
+
+persistence:
+  data:
+    enabled: true
+    mountPath: "/opt/onedev"
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+maintenance: false
+database:
+  vender: embedded
+  host:
+  port:
+  name: onedev
+  username: onedev
+  password: onedev
+
+portal:
+  enabled: true
