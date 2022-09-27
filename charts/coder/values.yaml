@@ -23,6 +23,11 @@ ingress:
   main:
     enabled: false
 
+serviceAccount:
+  main:
+    primary: true
+    enabled: true
+
 rbac:
   main:
     enabled: true
