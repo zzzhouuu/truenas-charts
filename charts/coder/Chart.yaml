@@ -13,6 +13,6 @@ sources:
 dependencies:
   - name: common
     repository: https://library-charts.truecharts.org
-    version: 10.5.10
+    version: 10.6.4
 type: application
-version: 1.0.7
+version: 1.0.8
