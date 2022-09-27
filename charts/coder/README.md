@@ -1,6 +1,6 @@
 # coder
 
-![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.8.15](https://img.shields.io/badge/AppVersion-0.8.15-informational?style=flat-square)
+![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.9.0](https://img.shields.io/badge/AppVersion-0.9.0-informational?style=flat-square)
 
 Remote development environments on your infrastructure provisioned with Terraform.
 
@@ -36,8 +36,10 @@ Kubernetes: `>= 1.19.0-0`
 | image.repository | string | `"ghcr.io/coder/coder"` |  |
 | image.tag | string | `"v0.9.0"` |  |
 | ingress.main.enabled | bool | `false` |  |
+| persistence.cache.enabled | bool | `true` |  |
+| persistence.cache.mountPath | string | `"/home/coder/.cache/coder"` |  |
 | persistence.config.enabled | bool | `true` |  |
-| persistence.config.mountPath | string | `"/.config/coderv2"` |  |
+| persistence.config.mountPath | string | `"/home/coder/.config/coderv2"` |  |
 | podSecurityContext.fsGroup | int | `1000` |  |
 | podSecurityContext.runAsGroup | int | `1000` |  |
 | podSecurityContext.runAsUser | int | `1000` |  |

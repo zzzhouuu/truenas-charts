@@ -37,7 +37,10 @@ rbac:
 persistence:
   config:
     enabled: true
-    mountPath: "/.config/coderv2"
+    mountPath: "/home/coder/.config/coderv2"
+  cache:
+    enabled: true
+    mountPath: "/home/coder/.cache/coder"
 
 probes:
   liveness:

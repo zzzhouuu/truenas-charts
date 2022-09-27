@@ -934,6 +934,183 @@ questions:
                                   label: Value
                                   schema:
                                     type: string
+        - variable: cache
+          label: "App Cache Storage"
+          description: "Stores the Application Cache."
+          schema:
+            additional_attrs: true
+            type: dict
+            attrs:
+              - variable: type
+                label: Type of Storage
+                description: Sets the persistence type, Anything other than PVC could break rollback!
+                schema:
+                  type: string
+                  default: simplePVC
+                  enum:
+                    - value: simplePVC
+                      description: PVC (simple)
+                    - value: simpleHP
+                      description: Host Path (simple)
+                    - value: emptyDir
+                      description: emptyDir
+                    - value: pvc
+                      description: PVC
+                    - value: hostPath
+                      description: Host Path
+                    - value: nfs
+                      description: NFS Share
+              - variable: server
+                label: NFS Server
+                schema:
+                  show_if: [["type", "=", "nfs"]]
+                  type: string
+                  default: ""
+              - variable: path
+                label: Path on NFS Server
+                schema:
+                  show_if: [["type", "=", "nfs"]]
+                  type: string
+                  default: ""
+              - variable: setPermissionsSimple
+                label: Automatic Permissions
+                description: Automatically set permissions on install
+                schema:
+                  show_if: [["type", "=", "simpleHP"]]
+                  type: boolean
+                  default: false
+              - variable: setPermissions
+                label: Automatic Permissions
+                description: Automatically set permissions on install
+                schema:
+                  show_if: [["type", "=", "hostPath"]]
+                  type: boolean
+                  default: false
+              - variable: readOnly
+                label: Read Only
+                schema:
+                  type: boolean
+                  default: false
+              - variable: hostPathSimple
+                label: Host Path
+                description: Path inside the container the storage is mounted
+                schema:
+                  show_if: [["type", "=", "simpleHP"]]
+                  type: hostpath
+              - variable: hostPath
+                label: Host Path
+                description: Path inside the container the storage is mounted
+                schema:
+                  show_if: [["type", "=", "hostPath"]]
+                  type: hostpath
+              - variable: medium
+                label: EmptyDir Medium
+                schema:
+                  show_if: [["type", "=", "emptyDir"]]
+                  type: string
+                  default: ""
+                  enum:
+                    - value: ""
+                      description: Default
+                    - value: Memory
+                      description: Memory
+              - variable: size
+                label: Size quotum of Storage
+                schema:
+                  show_if: [["type", "=", "pvc"]]
+                  type: string
+                  default: 999Gi
+              - variable: hostPathType
+                label: (Advanced) hostPath Type
+                schema:
+                  show_if: [["type", "=", "hostPath"]]
+                  type: string
+                  default: ""
+                  enum:
+                    - value: ""
+                      description: Default
+                    - value: DirectoryOrCreate
+                      description: DirectoryOrCreate
+                    - value: Directory
+                      description: Directory
+                    - value: FileOrCreate
+                      description: FileOrCreate
+                    - value: File
+                      description: File
+                    - value: Socket
+                      description: Socket
+                    - value: CharDevice
+                      description: CharDevice
+                    - value: BlockDevice
+                      description: BlockDevice
+              - variable: storageClass
+                label: (Advanced) storageClass
+                description: "Warning: Anything other than SCALE-ZFS or empty will break rollback!"
+                schema:
+                  show_if: [["type", "=", "pvc"]]
+                  type: string
+                  default: SCALE-ZFS
+              - variable: accessMode
+                label: (Advanced) Access Mode
+                description: Allow or disallow multiple PVC's writhing to the same PV
+                schema:
+                  show_if: [["type", "=", "pvc"]]
+                  type: string
+                  default: ReadWriteOnce
+                  enum:
+                    - value: ReadWriteOnce
+                      description: ReadWriteOnce
+                    - value: ReadOnlyMany
+                      description: ReadOnlyMany
+                    - value: ReadWriteMany
+                      description: ReadWriteMany
+              - variable: advanced
+                label: Show Advanced Options
+                schema:
+                  type: boolean
+                  default: false
+                  show_subquestions_if: true
+                  subquestions:
+                    - variable: labelsList
+                      label: Labels
+                      schema:
+                        type: list
+                        default: []
+                        items:
+                          - variable: labelItem
+                            label: Label
+                            schema:
+                              additional_attrs: true
+                              type: dict
+                              attrs:
+                                - variable: name
+                                  label: Name
+                                  schema:
+                                    type: string
+                                - variable: value
+                                  label: Value
+                                  schema:
+                                    type: string
+                    - variable: annotationsList
+                      label: Annotations
+                      schema:
+                        type: list
+                        default: []
+                        items:
+                          - variable: annotationItem
+                            label: Label
+                            schema:
+                              additional_attrs: true
+                              type: dict
+                              attrs:
+                                - variable: name
+                                  label: Name
+                                  schema:
+                                    type: string
+                                - variable: value
+                                  label: Value
+                                  schema:
+                                    type: string
 
   - variable: persistenceList
     label: Additional App Storage
