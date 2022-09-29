@@ -2,7 +2,7 @@
 
 image:
   repository: 1dev/server
-  tag: 7.6.0
+  tag: 7.6.2
   pullPolicy: IfNotPresent
 
 security:
@@ -15,6 +15,11 @@ podSecurityContext:
   runAsUser: 0
   runAsGroup: 0
   fsGroup: 0
+
+serviceAccount:
+  main:
+    primary: true
+    enabled: true
 
 rbac:
   main:
