@@ -1,0 +1,21 @@
+apiVersion: v2
+appVersion: "14.1.0.71"
+description: Unmodified Postgres with some useful plugins.
+home: https://www.postgresql.org
+icon: https://truecharts.org/img/hotlink-ok/chart-icons/postgresql.png
+keywords:
+  - postgres
+  - postgressql
+  - database
+  - sql
+kubeVersion: ">=1.19.0-0"
+name: postgres
+sources:
+  - https://github.com/supabase/postgres
+  - https://supabase.com
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.6.5
+type: application
+version: 1.0.3
