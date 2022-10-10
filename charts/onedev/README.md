@@ -1,6 +1,6 @@
 # onedev
 
-![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.6.2](https://img.shields.io/badge/AppVersion-7.6.2-informational?style=flat-square)
+![Version: 1.1.4](https://img.shields.io/badge/Version-1.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.7.0](https://img.shields.io/badge/AppVersion-7.7.0-informational?style=flat-square)
 
 Self-hosted Git Server with Kanban and CI/CD
 
@@ -16,7 +16,7 @@ Kubernetes: `>=1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://library-charts.truecharts.org | common | 10.6.5 |
+| https://library-charts.truecharts.org | common | 10.6.9 |
 
 ## Values
 
@@ -30,7 +30,7 @@ Kubernetes: `>=1.19.0-0`
 | database.vender | string | `"embedded"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"1dev/server"` |  |
-| image.tag | string | `"7.6.2"` |  |
+| image.tag | string | `"7.7.0"` |  |
 | maintenance | bool | `false` |  |
 | persistence.data.enabled | bool | `true` |  |
 | persistence.data.mountPath | string | `"/opt/onedev"` |  |
