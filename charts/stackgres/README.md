@@ -1,6 +1,6 @@
 # stackgres
 
-![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 1.3.1](https://img.shields.io/badge/Version-1.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.1](https://img.shields.io/badge/AppVersion-1.3.1-informational?style=flat-square)
 
 StackGres is a full-stack PostgreSQL distribution for Kubernetes, packed into an easy deployment unit.
 
@@ -17,8 +17,8 @@ Kubernetes: `1.18.0-0 - 1.24.x-O`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://library-charts.truecharts.org | common | 10.5.0 |
-| https://stackgres.io/downloads/stackgres-k8s/stackgres/helm | stackgres-operator | 1.3.0 |
+| https://library-charts.truecharts.org | common | 10.7.0 |
+| https://stackgres.io/downloads/stackgres-k8s/stackgres/helm | stackgres-operator | 1.3.1 |
 
 ## Values
 
