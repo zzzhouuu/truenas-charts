@@ -1,0 +1,26 @@
+apiVersion: v2
+appVersion: '1.3.1'
+description: StackGres is a full-stack PostgreSQL distribution for Kubernetes, packed into an easy deployment unit.
+home: https://stackgres.io
+icon: https://stackgres.io/img/favicon/android-chrome-192x192.png
+keywords:
+  - stackgres
+  - postgresql
+  - postgres
+  - cluster
+  - stack
+  - opinionated
+kubeVersion: "1.18.0-0 - 1.24.x-O"
+name: stackgres
+sources:
+  - https://gitlab.com/ongresinc/stackgres
+  - https://github.com/ongres/stackgres
+dependencies:
+  - name: stackgres-operator
+    repository: https://stackgres.io/downloads/stackgres-k8s/stackgres/helm
+    version: 1.3.1
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.7.0
+type: application
+version: 1.3.1
