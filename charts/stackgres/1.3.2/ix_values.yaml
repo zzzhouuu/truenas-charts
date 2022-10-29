@@ -1,0 +1,13 @@
+# Default values for Stackgres
+
+service:
+  main:
+    ports:
+      main:
+        port: 443
+        targetPort: https
+
+##
+# Most other defaults are set in questions.yaml
+# For other options please refer to the default_values.yaml or the common library chart
+##
