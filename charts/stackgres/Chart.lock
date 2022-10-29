@@ -1,9 +1,9 @@
 dependencies:
 - name: stackgres-operator
   repository: https://stackgres.io/downloads/stackgres-k8s/stackgres/helm
-  version: 1.3.2
+  version: 1.3.3
 - name: common
   repository: https://library-charts.truecharts.org
   version: 10.7.11
-digest: sha256:76a8063a8077f47cba698c1b6a3503f6e64fa3c3fc27d8b2881dd3b45935d3ca
-generated: "2022-10-29T17:19:47.992552+08:00"
+digest: sha256:13c3557dd10ff78d9cc0b407069781b24ca3b312aa9abbd6b20d7cecfb78fc74
+generated: "2022-10-29T17:23:00.049983+08:00"
