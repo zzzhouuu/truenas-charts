@@ -1,0 +1,42 @@
+# Default values for Stackgres
+
+# Override `stackgres` subchart values
+stackgres-operator:
+
+  adminui:
+    service:
+      type: ClusterIP
+      loadBalancerIP:
+      nodePort:
+
+  # Custom credentials for the operator's admin user
+  authentication:
+    user: admin
+    password: ""
+
+  prometheus:
+    allowAutobind: true
+
+  grafana:
+    autoEmbed: false
+    schema: http
+    webHost:
+    user:
+    password:
+    secretNamespace:
+    secretName:
+    secretUserKey:
+    secretPasswordKey:
+    datasourceName: Prometheus
+    dashboardId: ""
+
+service:
+  main:
+    ports:
+      main:
+        port: 443
+        targetPort: https
+
+ingress:
+  main:
+    enabled: false

@@ -1,0 +1,407 @@
+groups:
+  - name: Container Image
+    description: Image to be used for container
+  - name: Controller
+    description: Configure Workload Deployment
+  - name: Container Configuration
+    description: Additional Container Configuration
+  - name: App Configuration
+    description: App Specific Config Options
+  - name: Networking and Services
+    description: Configure Network and Services for Container
+  - name: Storage and Persistence
+    description: Persist and Share Data that is Separate from the Container
+  - name: Ingress
+    description: Ingress Configuration
+  - name: Security and Permissions
+    description: Configure Security Context and Permissions
+  - name: Resources and Devices
+    description: "Specify Resources/Devices to be Allocated to Workload"
+  - name: Middlewares
+    description: Traefik Middlewares
+  - name: Metrics
+    description: Metrics
+  - name: Addons
+    description: Addon Configuration
+  - name: Advanced
+    description: Advanced Configuration
+  - name: Documentation
+    description: Documentation
+
+portals:
+  open:
+    protocols:
+      - "$kubernetes-resource_configmap_portal_protocol"
+    host:
+      - "$kubernetes-resource_configmap_portal_host"
+    ports:
+      - "$kubernetes-resource_configmap_portal_port"
+
+questions:
+  - variable: global
+    label: Global Settings
+    group: Controller
+    schema:
+      type: dict
+      hidden: true
+      attrs:
+        - variable: isSCALE
+          label: Flag this is SCALE
+          schema:
+            type: boolean
+            default: true
+            hidden: true
+
+  - variable: portal
+    group: "Container Image"
+    label: "Configure Portal Button"
+    schema:
+      type: dict
+      hidden: true
+      attrs:
+        - variable: enabled
+          label: "Enable"
+          description: "enable the portal button"
+          schema:
+            hidden: true
+            editable: false
+            type: boolean
+            default: true
+
+  - variable: stackgres-operator
+    label: ""
+    group: "App Configuration"
+    schema:
+      type: dict
+      attrs:
+        - variable: authentication
+          label: "ADMINUI PARAMETERS"
+          schema:
+            type: dict
+            attrs:
+              - variable: user
+                label: "user"
+                description: "Username that will be required to access the UI."
+                schema:
+                  type: string
+                  required: true
+                  default: "admin"
+              - variable: password
+                label: "password"
+                description: "Password that will be required to access the UI."
+                schema:
+                  type: string
+                  private: true
+                  default: ""
+
+        - variable: prometheus
+          label: "PROMETHEUS PARAMETERS"
+          schema:
+            type: dict
+            attrs:
+              - variable: allowAutobind
+                label: "allowAutobind"
+                description: "Enable automatic bind to prometheus created using the prometheus operator"
+                schema:
+                  type: boolean
+                  default: true
+
+        - variable: grafana
+          label: "GRAFANA PARAMETERS"
+          schema:
+            type: dict
+            attrs:
+              - variable: autoEmbed
+                label: "autoEmbed"
+                description: "Enable embed an existing grafana"
+                schema:
+                  type: boolean
+                  default: false
+                  show_subquestions_if: true
+                  subquestions:
+                    - variable: schema
+                      label: "schema"
+                      description: "The schema to access grafana."
+                      schema:
+                        type: string
+                        default: "http"
+                        enum:
+                          - value: "http"
+                            description: "http"
+                          - value: "https"
+                            description: "https"
+                    - variable: webHost
+                      label: "webHost"
+                      description: "The service host name to access grafana."
+                      schema:
+                        type: string
+                        default: "http"
+                    - variable: user
+                      label: "user"
+                      description: "The username to access grafana."
+                      schema:
+                        type: string
+                        default: ""
+                    - variable: password
+                      label: "password"
+                      description: "The password to access grafana."
+                      schema:
+                        type: string
+                        private: true
+                        default: ""
+                    - variable: datasourceName
+                      label: "datasourceName"
+                      description: "The datasource name used by dashboard that will be created in grafana."
+                      schema:
+                        type: string
+                        default: "Prometheus"
+                    - variable: dashboardId
+                      label: "dashboardId"
+                      description: "The dashboard id that will be create in grafana."
+                      schema:
+                        type: string
+                        default: ""
+                    - variable: url
+                      label: "url"
+                      description: "The URL of the PostgreSQL dashboard created in grafana."
+                      schema:
+                        type: string
+                        default: ""
+                    - variable: token
+                      label: "token"
+                      description: "The grafana API token to access the PostgreSQL dashboard created in grafana."
+                      schema:
+                        type: string
+                        default: ""
+
+        - variable: adminui
+          group: "Networking and Services"
+          label: "Configure Service(s)"
+          schema:
+            type: dict
+            attrs:
+              - variable: service
+                label: ""
+                schema:
+                  type: dict
+                  attrs:
+                    - variable: type
+                      label: "Service Type"
+                      schema:
+                        type: string
+                        default: "ClusterIP"
+                        enum:
+                          - value: "NodePort"
+                            description: "NodePort"
+                          - value: "ClusterIP"
+                            description: "ClusterIP"
+                          - value: "LoadBalancer"
+                            description: "LoadBalancer"
+                    - variable: loadBalancerIP
+                      label: "LoadBalancer IP"
+                      schema:
+                        show_if: [["type", "=", "LoadBalancer"]]
+                        type: string
+                        default: ""
+                    - variable: nodePort
+                      label: "Node Port"
+                      description: "The port used to expose the service on kubernetes nodes"
+                      schema:
+                        show_if: [["type", "=", "NodePort"]]
+                        type: int
+
+  - variable: ingress
+    label: ""
+    group: Ingress
+    schema:
+      additional_attrs: true
+      type: dict
+      attrs:
+        - variable: main
+          label: "Main Ingress"
+          schema:
+            additional_attrs: true
+            type: dict
+            attrs:
+              - variable: enabled
+                label: Enable Ingress
+                schema:
+                  type: boolean
+                  default: false
+                  show_subquestions_if: true
+                  subquestions:
+                    - variable: hosts
+                      label: Hosts
+                      schema:
+                        type: list
+                        default: []
+                        items:
+                          - variable: hostEntry
+                            label: Host
+                            schema:
+                              additional_attrs: true
+                              type: dict
+                              attrs:
+                                - variable: host
+                                  label: HostName
+                                  schema:
+                                    type: string
+                                    default: ""
+                                    required: true
+                                - variable: paths
+                                  label: Paths
+                                  schema:
+                                    type: list
+                                    default: []
+                                    items:
+                                      - variable: pathEntry
+                                        label: Host
+                                        schema:
+                                          additional_attrs: true
+                                          type: dict
+                                          attrs:
+                                            - variable: path
+                                              label: Path
+                                              schema:
+                                                type: string
+                                                required: true
+                                                default: "/"
+                                            - variable: pathType
+                                              label: Path Type
+                                              schema:
+                                                type: string
+                                                required: true
+                                                default: Prefix
+                                            - variable: service
+                                              label: ""
+                                              schema:
+                                                type: dict
+                                                hidden: true
+                                                attrs:
+                                                  - variable: name
+                                                    label: name
+                                                    schema:
+                                                      type: string
+                                                      default: "stackgres-restapi"
+                                                  - variable: port
+                                                    label: port
+                                                    schema:
+                                                      type: int
+                                                      default: 443
+
+                    - variable: tls
+                      label: TLS-Settings
+                      schema:
+                        type: list
+                        default: []
+                        items:
+                          - variable: tlsEntry
+                            label: Host
+                            schema:
+                              additional_attrs: true
+                              type: dict
+                              attrs:
+                                - variable: hosts
+                                  label: Certificate Hosts
+                                  schema:
+                                    type: list
+                                    default: []
+                                    items:
+                                      - variable: host
+                                        label: Host
+                                        schema:
+                                          type: string
+                                          default: ""
+                                          required: true
+                                - variable: scaleCert
+                                  label: Select TrueNAS SCALE Certificate
+                                  schema:
+                                    type: int
+                                    $ref:
+                                      - "definitions/certificate"
+                    - variable: entrypoint
+                      label: (Advanced) Traefik Entrypoint
+                      description: Entrypoint used by Traefik when using Traefik as Ingress Provider
+                      schema:
+                        type: string
+                        default: websecure
+                        required: true
+                    - variable: middlewares
+                      label: Traefik Middlewares
+                      description: Add previously created Traefik Middlewares to this Ingress
+                      schema:
+                        type: list
+                        default: []
+                        items:
+                          - variable: name
+                            label: Name
+                            schema:
+                              type: string
+                              default: ""
+                              required: true
+
+              - variable: expert
+                label: Show Expert Configuration Options
+                schema:
+                  type: boolean
+                  default: false
+                  show_subquestions_if: true
+                  subquestions:
+                    - variable: enableFixedMiddlewares
+                      description: These middlewares enforce a number of best practices.
+                      label: Enable Default Middlewares
+                      schema:
+                        type: boolean
+                        default: true
+                    - variable: ingressClassName
+                      label: IngressClass Name
+                      schema:
+                        type: string
+                        default: ""
+                    - variable: labelsList
+                      label: Labels
+                      schema:
+                        type: list
+                        default: []
+                        items:
+                          - variable: labelItem
+                            label: Label
+                            schema:
+                              additional_attrs: true
+                              type: dict
+                              attrs:
+                                - variable: name
+                                  label: Name
+                                  schema:
+                                    type: string
+                                - variable: value
+                                  label: Value
+                                  schema:
+                                    type: string
+                    - variable: annotationsList
+                      label: Annotations
+                      schema:
+                        type: list
+                        default: []
+                        items:
+                          - variable: annotationItem
+                            label: Label
+                            schema:
+                              additional_attrs: true
+                              type: dict
+                              attrs:
+                                - variable: name
+                                  label: Name
+                                  schema:
+                                    type: string
+                                - variable: value
+                                  label: Value
+                                  schema:
+                                    type: string
+
+              - variable: nameOverride
+                label: "nameOverride"
+                schema:
+                  type: string
+                  default: "restapi"
+                  hidden: true
