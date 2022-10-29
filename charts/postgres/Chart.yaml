@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "14.1.0.77"
+appVersion: "14.1.0.82"
 description: Unmodified Postgres with some useful plugins.
 home: https://www.postgresql.org
 icon: https://truecharts.org/img/hotlink-ok/chart-icons/postgresql.png
@@ -18,4 +18,4 @@ dependencies:
     repository: https://library-charts.truecharts.org
     version: 10.7.11
 type: application
-version: 1.0.4
+version: 1.0.5
