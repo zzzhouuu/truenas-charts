@@ -1,6 +1,6 @@
 # postgres
 
-![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.1.0.82](https://img.shields.io/badge/AppVersion-14.1.0.82-informational?style=flat-square)
+![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.1.0.89](https://img.shields.io/badge/AppVersion-14.1.0.89-informational?style=flat-square)
 
 Unmodified Postgres with some useful plugins.
 
@@ -17,7 +17,7 @@ Kubernetes: `>=1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://library-charts.truecharts.org | common | 10.7.11 |
+| https://library-charts.truecharts.org | common | 10.7.20 |
 
 ## Values
 
@@ -36,7 +36,7 @@ Kubernetes: `>=1.19.0-0`
 | env.POSTGRES_USER.secretKeyRef.name | string | `"postgres-credentials"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"supabase/postgres"` |  |
-| image.tag | string | `"14.1.0.82"` |  |
+| image.tag | string | `"14.1.0.89"` |  |
 | initContainers.prepare-sysctl.command[0] | string | `"sysctl"` |  |
 | initContainers.prepare-sysctl.command[1] | string | `"-w"` |  |
 | initContainers.prepare-sysctl.command[2] | string | `"net.ipv4.tcp_keepalive_time=60"` |  |
