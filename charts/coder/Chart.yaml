@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "0.12.8"
+appVersion: "0.12.9"
 description: Remote development environments on your infrastructure provisioned with Terraform.
 home: https://coder.com
 icon: https://helm.coder.com/coder_logo_black.png
@@ -15,4 +15,4 @@ dependencies:
     repository: https://library-charts.truecharts.org
     version: 10.7.20
 type: application
-version: 1.2.3
+version: 1.2.4
