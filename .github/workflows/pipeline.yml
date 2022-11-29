@@ -21,7 +21,7 @@ concurrency:
 jobs:
   helm-docs:
     name: Helm Docs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
 
   helm-lint:
     name: Helm Charts (lint)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
 
   helm-install:
     name: Helm Charts (install)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -91,7 +91,7 @@ jobs:
       - helm-docs
       - helm-lint
       - helm-install
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: ixsystems/catalog_validation:latest
     steps:
