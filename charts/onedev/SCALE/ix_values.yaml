@@ -2,7 +2,7 @@
 
 image:
   repository: 1dev/server
-  tag: 7.8.5
+  tag: 7.8.6
   pullPolicy: IfNotPresent
 
 security:
