@@ -1,0 +1,68 @@
+# Default values for Coder
+
+image:
+  repository: ghcr.io/coder/coder
+  pullPolicy: IfNotPresent
+  tag: v0.13.3
+
+security:
+  PUID: 1000
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+service:
+  main:
+    ports:
+      main:
+        port: 8080
+
+ingress:
+  main:
+    enabled: false
+
+serviceAccount:
+  main:
+    primary: true
+    enabled: true
+
+rbac:
+  main:
+    enabled: true
+    rules:
+      - apiGroups: [""]
+        resources: ["pods"]
+        verbs: ["*"]
+      - apiGroups: [""]
+        resources: ["persistentvolumeclaims"]
+        verbs: ["*"]
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/home/coder/.config/coderv2"
+  cache:
+    enabled: true
+    mountPath: "/home/coder/.cache/coder"
+
+probes:
+  liveness:
+    type: HTTP
+    path: "/api/v2/buildinfo"
+
+  readiness:
+    type: HTTP
+    path: "/api/v2/buildinfo"
+
+  startup:
+    enabled: false
+
+env:
+  CODER_ADDRESS: 0.0.0.0:8080
+  CODER_ACCESS_URL: "{{ .Values.domain }}"
+  CODER_PG_CONNECTION_URL:
+    secretKeyRef:
+      name: postgres-credentials
+      key: "CODER_PG_CONNECTION_URL"
