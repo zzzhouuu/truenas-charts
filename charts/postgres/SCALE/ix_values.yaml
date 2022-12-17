@@ -1,6 +1,6 @@
 image:
   repository: supabase/postgres
-  tag: 14.1.0.89
+  tag: 14.1.0.105
   pullPolicy: IfNotPresent
 
 controller:
