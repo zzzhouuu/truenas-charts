@@ -1,6 +1,6 @@
 # clash
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2022.08.26](https://img.shields.io/badge/AppVersion-2022.08.26-informational?style=flat-square)
+![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2022.11.25](https://img.shields.io/badge/AppVersion-2022.11.25-informational?style=flat-square)
 
 A rule-based tunnel in Go.
 
@@ -16,7 +16,7 @@ Kubernetes: `>= 1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://library-charts.truecharts.org | common | 10.5.2 |
+| https://library-charts.truecharts.org | common | 10.7.20 |
 
 ## Values
 
@@ -24,7 +24,7 @@ Kubernetes: `>= 1.19.0-0`
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/dreamacro/clash-premium"` |  |
-| image.tag | string | `"2022.08.26"` |  |
+| image.tag | string | `"2022.11.25"` |  |
 | ingress.main.enabled | bool | `false` |  |
 | persistence.data.enabled | bool | `true` |  |
 | persistence.data.mountPath | string | `"/root/.config/clash"` |  |

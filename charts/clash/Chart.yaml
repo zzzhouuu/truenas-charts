@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "2022.08.26"
+appVersion: "2022.11.25"
 description: A rule-based tunnel in Go.
 home: https://github.com/Dreamacro/clash
 icon: https://github.com/Dreamacro/clash/raw/master/docs/logo.png
@@ -12,6 +12,6 @@ sources:
 dependencies:
   - name: common
     repository: https://library-charts.truecharts.org
-    version: 10.5.2
+    version: 10.7.20
 type: application
-version: 1.0.1
+version: 1.0.2

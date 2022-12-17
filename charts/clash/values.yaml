@@ -3,7 +3,7 @@
 image:
   repository: ghcr.io/dreamacro/clash-premium
   pullPolicy: IfNotPresent
-  tag: 2022.08.26
+  tag: 2022.11.25
 
 security:
   PUID: 0
