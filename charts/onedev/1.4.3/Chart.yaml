@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "7.8.16"
 description: Self-hosted Git Server with Kanban and CI/CD
 home: https://code.onedev.io
-icon: https://code.onedev.io/img/logo.png
+icon: https://code.onedev.io/~img/logo.png
 keywords:
   - code
   - git
