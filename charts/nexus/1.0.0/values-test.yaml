@@ -1,0 +1,43 @@
+image:
+  repository: sonatype/nexus3
+  tag: 3.45.0
+  pullPolicy: IfNotPresent
+
+security:
+  PUID: 200
+  UMASK: 002
+
+podSecurityContext:
+  runAsUser: 200
+  runAsGroup: 200
+  fsGroup: 200
+  supplementalGroups: []
+  fsGroupChangePolicy: OnRootMismatch
+
+serviceAccount:
+  main:
+    primary: true
+    enabled: true
+
+service:
+  main:
+    ports:
+      main:
+        port: 8081
+        targetPort: 8081
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/nexus-data"
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+portal:
+  enabled: true
