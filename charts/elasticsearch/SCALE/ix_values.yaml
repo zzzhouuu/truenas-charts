@@ -32,6 +32,9 @@ persistence:
   data:
     enabled: true
     mountPath: "/usr/share/elasticsearch/data"
+  plugins:
+    enabled: true
+    mountPath: "/usr/share/elasticsearch/plugins"
 
 probes:
   liveness:
