@@ -1,0 +1,45 @@
+image:
+  repository: docker.elastic.co/elasticsearch/elasticsearch
+  tag: 6.2.2
+  pullPolicy: IfNotPresent
+
+controller:
+  type: statefulset
+  replicas: 1
+  strategy: RollingUpdate
+  rollingUpdate:
+    unavailable: 1
+    surge:
+    partition:
+  revisionHistoryLimit: 3
+
+serviceAccount:
+  main:
+    primary: true
+    enabled: true
+
+service:
+  main:
+    ports:
+      main:
+        port: 9200
+        targetPort: 9200
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/usr/share/elasticsearch/data"
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+env:
+  "discovery.type": "single-node"
+
+portal:
+  enabled: true
