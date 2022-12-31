@@ -1,0 +1,19 @@
+apiVersion: v2
+appVersion: "6.2.2"
+description: Free and Open, Distributed, RESTful Search Engine.
+home: https://github.com/elastic/cloud-on-k8s
+icon: https://helm.elastic.co/icons/elasticsearch.png
+keywords:
+  - elasticsearch
+  - search
+kubeVersion: ">=1.19.0-0"
+name: elasticsearch
+sources:
+  - https://github.com/elastic/cloud-on-k8s
+  - https://github.com/elastic/elasticsearch
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 11.1.2
+type: application
+version: 1.0.1
