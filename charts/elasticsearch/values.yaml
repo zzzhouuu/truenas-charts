@@ -28,6 +28,9 @@ service:
 persistence:
   config:
     enabled: true
+    mountPath: "/usr/share/elasticsearch/config"
+  data:
+    enabled: true
     mountPath: "/usr/share/elasticsearch/data"
 
 probes:

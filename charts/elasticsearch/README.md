@@ -1,6 +1,6 @@
 # elasticsearch
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.2](https://img.shields.io/badge/AppVersion-6.2.2-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.2](https://img.shields.io/badge/AppVersion-6.2.2-informational?style=flat-square)
 
 Free and Open, Distributed, RESTful Search Engine.
 
@@ -35,7 +35,9 @@ Kubernetes: `>=1.19.0-0`
 | image.repository | string | `"docker.elastic.co/elasticsearch/elasticsearch"` |  |
 | image.tag | string | `"6.2.2"` |  |
 | persistence.config.enabled | bool | `true` |  |
-| persistence.config.mountPath | string | `"/usr/share/elasticsearch/data"` |  |
+| persistence.config.mountPath | string | `"/usr/share/elasticsearch/config"` |  |
+| persistence.data.enabled | bool | `true` |  |
+| persistence.data.mountPath | string | `"/usr/share/elasticsearch/data"` |  |
 | portal.enabled | bool | `true` |  |
 | probes.liveness.enabled | bool | `false` |  |
 | probes.readiness.enabled | bool | `false` |  |
