@@ -300,6 +300,13 @@ questions:
       type: string
       required: true
 
+  - variable: wildcard_domain
+    group: "App Configuration"
+    label: "Coder Wildcard Access URL"
+    schema:
+      type: string
+      required: false
+
   - variable: database
     group: "App Configuration"
     label: "Database"

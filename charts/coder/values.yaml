@@ -3,7 +3,7 @@
 image:
   repository: ghcr.io/coder/coder
   pullPolicy: IfNotPresent
-  tag: v0.15.2
+  tag: v0.15.3
 
 security:
   PUID: 1000
@@ -68,6 +68,7 @@ env:
       key: "CODER_PG_CONNECTION_URL"
 
 domain: ""
+wildcard_domain: ""
 database:
   host: "postgres"
   port: 5432
