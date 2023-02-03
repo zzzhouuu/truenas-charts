@@ -3,7 +3,7 @@
 image:
   repository: ghcr.io/coder/coder
   pullPolicy: IfNotPresent
-  tag: v0.15.3
+  tag: v0.16.0
 
 security:
   PUID: 1000
