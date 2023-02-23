@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "8.0.3"
+appVersion: "8.0.4"
 description: Self-hosted Git Server with Kanban and CI/CD
 home: https://code.onedev.io
 icon: https://code.onedev.io/~img/logo.png
@@ -15,4 +15,4 @@ dependencies:
     repository: https://library-charts.truecharts.org
     version: 10.7.20
 type: application
-version: 1.5.4
+version: 1.5.5
