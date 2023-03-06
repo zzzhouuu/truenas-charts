@@ -1,6 +1,6 @@
 # onedev
 
-![Version: 1.5.5](https://img.shields.io/badge/Version-1.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.4](https://img.shields.io/badge/AppVersion-8.0.4-informational?style=flat-square)
+![Version: 1.5.6](https://img.shields.io/badge/Version-1.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.6](https://img.shields.io/badge/AppVersion-8.0.6-informational?style=flat-square)
 
 Self-hosted Git Server with Kanban and CI/CD
 
@@ -30,7 +30,7 @@ Kubernetes: `>=1.19.0-0`
 | database.vender | string | `"embedded"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"1dev/server"` |  |
-| image.tag | string | `"8.0.4"` |  |
+| image.tag | string | `"8.0.6"` |  |
 | maintenance | bool | `false` |  |
 | persistence.data.enabled | bool | `true` |  |
 | persistence.data.mountPath | string | `"/opt/onedev"` |  |
