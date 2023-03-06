@@ -180,6 +180,7 @@ jobs:
           done
       - name: Update catalog details
         run: |
+          cd gh-pages
           /bin/bash -c "PWD=${pwd}; /usr/local/bin/catalog_update update --path $PWD"
       - name: Validate Catalog
         run: |
