@@ -178,10 +178,13 @@ jobs:
               fi
             done
           done
+      - name: Update catalog details
+        run: |
+          /bin/bash -c "PWD=${pwd}; /usr/local/bin/catalog_update update --path $PWD"
       - name: Validate Catalog
         run: |
           cd gh-pages
-          /bin/bash -c "PWD=${pwd}; echo $PWD && /usr/local/bin/catalog_validate validate --path $PWD"
+          /bin/bash -c "PWD=${pwd}; /usr/local/bin/catalog_validate validate --path $PWD"
       - name: Publish Catalog
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
