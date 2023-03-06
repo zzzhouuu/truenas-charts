@@ -1,0 +1,18 @@
+apiVersion: v2
+appVersion: "0.18.1"
+description: Remote development environments on your infrastructure provisioned with Terraform.
+home: https://coder.com
+icon: https://helm.coder.com/coder_logo_black.png
+keywords:
+  - coder
+  - terraform
+kubeVersion: ">= 1.19.0-0"
+name: coder
+sources:
+  - https://github.com/coder/coder
+dependencies:
+  - name: common
+    repository: https://library-charts.truecharts.org
+    version: 10.7.20
+type: application
+version: 1.4.1
