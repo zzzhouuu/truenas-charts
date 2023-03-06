@@ -181,7 +181,7 @@ jobs:
       - name: Validate Catalog
         run: |
           cd gh-pages
-          /bin/bash -c "PWD=${pwd}; echo $$PWD && /usr/local/bin/catalog_validate validate --path $PWD"
+          /bin/bash -c "PWD=${pwd}; echo $PWD && /usr/local/bin/catalog_validate validate --path $PWD"
       - name: Publish Catalog
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
