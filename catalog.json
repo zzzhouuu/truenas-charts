@@ -148,7 +148,7 @@
             "latest_version": "1.4.1",
             "latest_app_version": "0.18.1",
             "latest_human_version": "0.18.1_1.4.1",
-            "last_update": "2023-02-23 01:58:10",
+            "last_update": "2023-03-06 13:55:51",
             "name": "coder",
             "title": "Coder",
             "icon_url": "https://helm.coder.com/coder_logo_black.png"
@@ -179,10 +179,10 @@
             "healthy": true,
             "healthy_error": null,
             "location": "/__w/truenas-charts/truenas-charts/gh-pages/charts/onedev",
-            "latest_version": "1.5.6",
-            "latest_app_version": "8.0.6",
-            "latest_human_version": "8.0.6_1.5.6",
-            "last_update": "2023-02-23 01:58:10",
+            "latest_version": "1.5.7",
+            "latest_app_version": "8.0.7",
+            "latest_human_version": "8.0.7_1.5.7",
+            "last_update": "2023-03-06 13:55:51",
             "name": "onedev",
             "title": "Onedev",
             "icon_url": "https://code.onedev.io/~img/logo.png"
